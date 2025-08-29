@@ -4,6 +4,22 @@ import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
+/**
+ * #swagger.tags = ['Auth']
+ * #swagger.summary = 'Registrar novo usuário'
+ * #swagger.description = 'Endpoint para registrar um novo usuário no sistema'
+ * #swagger.parameters['body'] = {
+ *   in: 'body',
+ *   description: 'Dados do usuário',
+ *   required: true,
+ *   schema: {
+ *     nome: 'João Silva',
+ *     email: 'joao@email.com',
+ *     senha: '123456',
+ *     role: 'user'
+ *   }
+ * }
+ */
 export const register = async (req: Request, res: Response) => {
   const { nome, email, senha, role } = req.body;
   const hashedPassword = await bcrypt.hash(senha, 10);
@@ -18,6 +34,20 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * #swagger.tags = ['Auth']
+ * #swagger.summary = 'Login do usuário'
+ * #swagger.description = 'Endpoint para autenticar usuário no sistema'
+ * #swagger.parameters['body'] = {
+ *   in: 'body',
+ *   description: 'Credenciais do usuário',
+ *   required: true,
+ *   schema: {
+ *     email: 'joao@email.com',
+ *     senha: '123456'
+ *   }
+ * }
+ */
 export const login = async (req: Request, res: Response) => {
   const { email, senha } = req.body;
   const usuario = await prisma.usuario.findUnique({ where: { email } });
