@@ -10,18 +10,34 @@ const prisma = new PrismaClient();
  * #swagger.description = 'Endpoint para registrar um novo usuário no sistema'
  * #swagger.parameters['body'] = {
  *   in: 'body',
- *   description: 'Dados do usuário',
+ *   description: 'Dados do usuário e credenciais de admin',
  *   required: true,
  *   schema: {
  *     nome: 'João Silva',
  *     email: 'joao@email.com',
  *     senha: '123456',
- *     role: 'user'
+ *     role: 'user',
+ *     adminEmail: 'admin',
+ *     adminSenha: 'admin'
  *   }
  * }
  */
 export const register = async (req: Request, res: Response) => {
-  const { nome, email, senha, role } = req.body;
+  const { nome, email, senha, role, adminEmail, adminSenha } = req.body;
+
+  const userCount = await prisma.usuario.count();
+
+  if (userCount === 0) {
+    const adminHash = await bcrypt.hash('admin', 10);
+    await prisma.usuario.create({
+      data: { nome: 'Admin', email: 'admin', senha: adminHash, role: 'admin' }
+    });
+  }
+
+  if (adminEmail !== 'admin' || adminSenha !== 'admin') {
+    return res.status(403).json({ error: 'Apenas administradores podem criar contas.' });
+  }
+
   const hashedPassword = await bcrypt.hash(senha, 10);
 
   try {

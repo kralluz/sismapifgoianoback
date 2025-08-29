@@ -1,3 +1,12 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgres://postgres:a0d681fb0de922864420@72.60.5.68:5465/sismap?sslmode=disable"
+}
+
 model Usuario {
   id      Int     @id @default(autoincrement())
   nome    String
