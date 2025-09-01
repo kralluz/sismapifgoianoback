@@ -14,3 +14,32 @@ model Usuario {
   senha   String
   role    String
 }
+
+model Room {
+  id          Int     @id @default(autoincrement())
+  name        String
+  x           Int
+  y           Int
+  description String
+  capacity    Int
+  type        String
+  floor       Int
+  building    String
+  amenities   String[]
+  path        Json
+  events      Project[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model Project {
+  id        Int      @id @default(autoincrement())
+  title     String
+  type      String   // palestra, apresentação, exposição...
+  startAt   DateTime
+  endAt     DateTime
+  roomId    Int
+  room      Room     @relation(fields: [roomId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+}
