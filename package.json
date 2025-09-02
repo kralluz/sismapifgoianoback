@@ -17,6 +17,7 @@
     "bcrypt": "^6.0.0",
     "express": "^5.1.0",
     "swagger-autogen": "^2.23.7",
+    "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "zod": "^4.1.5"
   },

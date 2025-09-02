@@ -3,9 +3,9 @@ import { createNewRoom,getAllRooms, deleteRoom, findRoomById } from "../controll
 
 const router = Router();
 
-router.post('/room', createNewRoom);
-router.get('/room', getAllRooms);
-router.get('/room/:id', findRoomById);
-router.delete('/room/:id', deleteRoom);
+router.post('/', createNewRoom);
+router.get('/', getAllRooms);
+router.get('/:id', findRoomById);
+router.delete('/:id', deleteRoom);
 
 export default router;

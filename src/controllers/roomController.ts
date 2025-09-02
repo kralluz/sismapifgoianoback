@@ -4,30 +4,28 @@ import { roomSchema } from '../schema/roomSchema';
 
 
 /**
- * #swagger.tags = ['Rooms']
- * #swagger.summary = 'Criar uma nova sala'
- * #swagger.description = 'Endpoint para criar uma sala no sistema'
- * #swagger.requestBody = {
- *   required: true,
- *   content: {
- *     "application/json": {
- *       schema: {
- *         name: "Lab Informática I",
- *         x: 68,
- *         y: 28,
- *         description: "Laboratório de Programação",
- *         capacity: 20,
- *         type: "lab",
- *         floor: 1,
- *         building: "B",
- *         amenities: ["Projetor", "Lousa", "Ar-Condicionado"],
- *         path: [[10,10],[20,15],[40,20],[60,25],[68,28]]
- *       }
- *     }
- *   }
- * }
- * #swagger.responses[201] = { description: "Sala criada com sucesso" }
- * #swagger.responses[400] = { description: "Erro ao criar sala" }
+*  #swagger.tags = ['Rooms']
+*  #swagger.summary = 'Criar uma nova sala'
+*  #swagger.description = 'Endpoint para criar uma sala no sistema'
+*  #swagger.parameters['body'] = {
+*    in: 'body',
+*    description: 'Dados da sala',
+*    required: true,
+*    schema: {
+*      name: "Lab Informática I",
+*      x: 68,
+*      y: 28,
+*      description: "Laboratório de Programação",
+*      capacity: 20,
+*      type: "lab",
+*      floor: 1,
+*      building: "B",
+*      amenities: ["Projetor", "Lousa", "Ar-Condicionado"],
+*      path: [[10,10],[20,15],[40,20],[60,25],[68,28]]
+*    }
+*  }
+*  #swagger.responses[201] = { description: "Sala criada com sucesso" }
+*  #swagger.responses[400] = { description: "Erro ao criar sala" }
  */
 export const createNewRoom = async (req: Request, res: Response) => {
   const roomData = roomSchema.parse(req.body);

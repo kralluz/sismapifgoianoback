@@ -1,4 +1,4 @@
-const swaggerAutogen = require('swagger-autogen')();
+const swaggerAutogen = require('swagger-autogen')({ openapi: '3.0.0' });
 
 const doc = {
   info: {
@@ -12,11 +12,24 @@ const doc = {
     {
       name: 'Auth',
       description: 'Endpoints de autenticação'
+    },
+    {
+      name: 'Rooms',
+      description: 'Endpoints de gerenciamento de salas'
+    },
+    {
+      name: 'Projects',
+      description: 'Endpoints de gerenciamento de projetos'
     }
+
   ]
 };
 
 const outputFile = './src/swagger-output.json';
-const endpointsFiles = ['./src/app.ts', './src/controllers/roomController.ts'];
+const endpointsFiles = [
+  './src/app.ts',
+  './src/routers/roomRouter.ts',
+  './src/routers/projectRouter.ts'
+];
 
 swaggerAutogen(outputFile, endpointsFiles, doc);

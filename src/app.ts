@@ -2,6 +2,7 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import authRouter from './routers/authRouter';
 import roomRouter from './routers/roomRouter';
+import projectRouter from './routers/projectRouter';
 const swaggerDocument = require('./swagger-output.json');
 
 const app = express();
@@ -11,7 +12,8 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/auth', authRouter);
-app.use('/api', roomRouter);
+app.use('/api/room', roomRouter);
+app.use('/api/project', projectRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
