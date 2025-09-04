@@ -1,31 +1,13 @@
 import { Request, Response } from 'express';
-import { createDefaultAdmin, createUser, findUserByEmail, validatePassword } from '../services/userService';
+import { createUser, findUserByEmail, validatePassword, getUserCount } from '../services/userService';
 import { validateAdminCredentials } from '../middlewares/authMiddleware';
 
-/**
- * #swagger.tags = ['Auth']
- * #swagger.summary = 'Registrar novo usuário'
- * #swagger.description = 'Endpoint para registrar um novo usuário no sistema'
- * #swagger.parameters['body'] = {
- *   in: 'body',
- *   description: 'Dados do usuário e credenciais de admin',
- *   required: true,
- *   schema: {
- *     nome: 'João Silva',
- *     email: 'joao@email.com',
- *     senha: '123456',
- *     role: 'user',
- *     adminEmail: 'admin',
- *     adminSenha: 'admin'
- *   }
- * }
- */
 export const register = async (req: Request, res: Response) => {
   const { nome, email, senha, role, adminEmail, adminSenha } = req.body;
 
-  await createDefaultAdmin();
-
-  if (!validateAdminCredentials(adminEmail, adminSenha)) {
+  // Verificar se é o primeiro usuário ou se são credenciais válidas de admin
+  const userCount = await getUserCount();
+  if (userCount > 0 && !validateAdminCredentials(adminEmail, adminSenha)) {
     return res.status(403).json({ error: 'Apenas administradores podem criar contas.' });
   }
 
@@ -37,22 +19,19 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * #swagger.tags = ['Auth']
- * #swagger.summary = 'Login do usuário'
- * #swagger.description = 'Endpoint para autenticar usuário no sistema'
- * #swagger.parameters['body'] = {
- *   in: 'body',
- *   description: 'Credenciais do usuário',
- *   required: true,
- *   schema: {
- *     email: 'joao@email.com',
- *     senha: '123456'
- *   }
- * }
- */
 export const login = async (req: Request, res: Response) => {
   const { email, senha } = req.body;
+  
+  // Verificar se são as credenciais do admin virtual
+  if (email === 'admin' && senha === 'admin') {
+    const userCount = await getUserCount();
+    if (userCount === 0) {
+      return res.json({ id: 0, nome: 'Admin', email: 'admin', role: 'admin' });
+    } else {
+      return res.status(401).json({ error: 'Credenciais inválidas.' });
+    }
+  }
+  
   const usuario = await findUserByEmail(email);
 
   if (!usuario) return res.status(401).json({ error: 'Usuário não encontrado.' });

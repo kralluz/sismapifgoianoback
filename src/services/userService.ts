@@ -3,15 +3,8 @@ import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
-export const createDefaultAdmin = async () => {
-  const userCount = await prisma.usuario.count();
-  
-  if (userCount === 0) {
-    const adminHash = await bcrypt.hash('admin', 10);
-    await prisma.usuario.create({
-      data: { nome: 'Admin', email: 'admin', senha: adminHash, role: 'admin' }
-    });
-  }
+export const getUserCount = async (): Promise<number> => {
+  return await prisma.usuario.count();
 };
 
 export const createUser = async (nome: string, email: string, senha: string, role: string) => {

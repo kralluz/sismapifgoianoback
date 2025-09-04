@@ -2,28 +2,6 @@ import { Request, Response } from 'express';
 import * as projectService from '../services/projectService';
 import { projectSchema } from '../schema/projectSchema';
 
-
-/**
- * #swagger.tags = ['Projects']
- * #swagger.summary = 'Criar um novo projeto'
- * #swagger.description = 'Endpoint para criar um projeto no sistema'
- * #swagger.requestBody = {
- *   required: true,
- *   content: {
- *     "application/json": {
- *       schema: {
- *         title: "Novo Projeto",
- *         type: "Banner",
- *         startAt: "2023-01-01",
- *         endAt: "2023-12-31",
- *         roomId: 1
- *       }
- *     }
- *   }
- * }
- * #swagger.responses[201] = { description: "Projeto criado com sucesso" }
- * #swagger.responses[400] = { description: "Erro ao criar projeto" }
- */
 export const createProject = async (req: Request, res: Response) => {
   try {
     const projectData = projectSchema.parse(req.body);
@@ -35,13 +13,6 @@ export const createProject = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * #swagger.tags = ['Projects']
- * #swagger.summary = 'Listagem de todos os projetos'
- * #swagger.description = 'Endpoint para listar todos os projetos do sistema'
- * #swagger.responses[200] = { description: "Projetos listados com sucesso" }
- * #swagger.responses[400] = { description: "Erro ao listar projetos" }
- */
 export const getAllProjects = async (req: Request, res: Response) => {
   try {
     const projects = await projectService.findAllProjects();
