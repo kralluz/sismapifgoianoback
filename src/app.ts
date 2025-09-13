@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import authRouter from './routers/authRouter';
 import roomRouter from './routers/roomRouter';
@@ -8,13 +7,19 @@ const swaggerDocument = require('../swagger-output.json');
 
 const app = express();
 
-// CORS configurado para permitir Content-Type
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: false
-}));
+// CORS manual
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+  
+  next();
+});
 
 app.use(express.json());
 
