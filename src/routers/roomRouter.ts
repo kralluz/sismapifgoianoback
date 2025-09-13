@@ -1,13 +1,12 @@
 import { Router } from 'express';
-import { getRooms, createRoom } from '../controllers/roomController';
+import { createNewRoom, getAllRooms, deleteRoom, findRoomById } from '../controllers/roomController';
 import { authenticateToken, requireAdmin } from '../middlewares/authMiddleware';
 
 const router = Router();
 
-// Rota protegida - qualquer usuário logado
-router.get('/', authenticateToken, getRooms);
-
-// Rota protegida - apenas admin
-router.post('/', authenticateToken, requireAdmin, createRoom);
+router.post('/', authenticateToken, requireAdmin, createNewRoom);
+router.get('/', authenticateToken, getAllRooms);
+router.get('/:id', authenticateToken, findRoomById);
+router.delete('/:id', authenticateToken, requireAdmin, deleteRoom);
 
 export default router;

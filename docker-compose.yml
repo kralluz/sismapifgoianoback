@@ -1,0 +1,71 @@
+services:
+  api:
+    image: ghcr.io/kralluz/sismapifgoianoback:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      no_cache: true
+
+    container_name: sismapifgoianoback-api
+
+    environment:
+      - NODE_ENV=production
+      - PORT=3020
+      - API_HOST=0.0.0.0
+      - DATABASE_URL=postgres://postgres:a0d681fb0de922864420@72.60.5.68:5465/sismap?sslmode=disable
+      - JWT_SECRET=Webpro_Indicadores##***5432
+      - JWT_REFRESH_SECRET=##***5432Webpro_Indicadores
+      - SECRET_KEY=Webpro_Indicadores_Secret_Key
+      - ACCESS_TOKEN_EXPIRY=45m
+      - REFRESH_TOKEN_EXPIRY=8h
+      - NEW_RELIC_APP_NAME=indicadores
+      - ZAPI_BASE_URL=https://api.z-api.io
+      - ZAPI_INSTANCE_ID=your_instance_id_here
+      - ZAPI_CLIENT_TOKEN=your_client_token_here
+      - ESUS_DB_HOST=201.54.21.68
+      - ESUS_DB_PORT=5433
+      - ESUS_DB_USER=postgres
+      - ESUS_DB_PASSWORD=?GIpWW@6q~zSjKrym-+PpCZNCx~m
+      - ESUS_DB_NAME=esus
+      - CRYPTO_SECRET=e11ced2a17a24f314ff78393ad35b10ed15e53c785cf8021806fc8a3030fcd8a
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3020/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    deploy:
+      mode: replicated
+      replicas: 1
+
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+      restart_policy:
+        condition: any
+
+      update_config:
+        parallelism: 1
+        delay: 10s
+
+      rollback_config:
+        parallelism: 1
+        delay: 10s
+
+      endpoint_mode: vip
+
+    ports:
+      - "3020:3020"
