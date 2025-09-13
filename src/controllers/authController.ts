@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { createDefaultAdmin, createUser, findUserByEmail, validatePassword } from '../services/userService';
 import { validateAdminCredentials } from '../middlewares/authMiddleware';
+import { generateToken } from '../services/tokenService';
 
 /**
  * #swagger.tags = ['Auth']
@@ -53,6 +54,7 @@ export const register = async (req: Request, res: Response) => {
  */
 export const login = async (req: Request, res: Response) => {
   const { email, senha } = req.body;
+  
   const usuario = await findUserByEmail(email);
 
   if (!usuario) return res.status(401).json({ error: 'Usuário não encontrado.' });
@@ -60,5 +62,13 @@ export const login = async (req: Request, res: Response) => {
   const valid = await validatePassword(senha, usuario.senha);
   if (!valid) return res.status(401).json({ error: 'Senha incorreta.' });
 
-  res.json({ id: usuario.id, nome: usuario.nome, email: usuario.email, role: usuario.role });
+  const token = generateToken(usuario.id, usuario.email, usuario.role);
+
+  res.json({ 
+    id: usuario.id, 
+    nome: usuario.nome, 
+    email: usuario.email, 
+    role: usuario.role,
+    token 
+  });
 };

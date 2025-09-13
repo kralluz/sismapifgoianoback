@@ -8,10 +8,22 @@ const doc = {
   },
   host: 'localhost:3000',
   schemes: ['http'],
+  securityDefinitions: {
+    bearerAuth: {
+      type: 'apiKey',
+      name: 'Authorization',
+      in: 'header',
+      description: 'Bearer token. Exemplo: Bearer seu_token_aqui'
+    }
+  },
   tags: [
     {
       name: 'Auth',
       description: 'Endpoints de autenticação'
+    },
+    {
+      name: 'Rooms',
+      description: 'Endpoints de salas (protegidos)'
     }
   ]
 };
