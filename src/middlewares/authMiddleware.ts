@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../services/jwtService';
 
 export const validateAdminCredentials = (adminEmail: string, adminSenha: string): boolean => {
-  return adminEmail === 'admin' && adminSenha === 'admin';
+  return (adminEmail === 'admin' || adminEmail === 'admin@mail.com') && adminSenha === 'admin';
 };
 
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {

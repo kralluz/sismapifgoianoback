@@ -9,12 +9,10 @@ const swaggerDocument = require('../swagger-output.json');
 
 const app = express();
 
-// CORS manual
 app.use(cors({ origin: "*" }));
 
 app.use(express.json());
 
-// Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ 
     status: 'ok', 
@@ -23,7 +21,6 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/auth', authRouter);
