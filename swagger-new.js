@@ -6,14 +6,20 @@ const doc = {
     description: 'API do Sistema de Mapeamento',
     version: '1.0.0'
   },
-  host: 'localhost:3000',
-  schemes: ['http'],
-  securityDefinitions: {
-    bearerAuth: {
-      type: 'apiKey',
-      name: 'Authorization',
-      in: 'header',
-      description: 'Bearer token. Exemplo: Bearer seu_token_aqui'
+  servers: [
+    {
+      url: 'http://localhost:3000',
+      description: 'Servidor de desenvolvimento'
+    }
+  ],
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Token JWT para autenticação. Formato: Bearer {token}'
+      }
     }
   },
   tags: [
@@ -41,4 +47,6 @@ const endpointsFiles = [
   './src/app.ts'
 ];
 
-swaggerAutogen(outputFile, endpointsFiles, doc);
+swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
+  console.log('Documentação Swagger gerada com sucesso!');
+});

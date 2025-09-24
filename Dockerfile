@@ -58,6 +58,7 @@ RUN npx prisma generate
 
 # Copy built files from builder
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/swagger-output.json ./swagger-output.json
 
 # Copy docker entrypoint script
 COPY docker-entrypoint.sh ./docker-entrypoint.sh

@@ -8,6 +8,7 @@ router.post('/', authenticateToken, requireAdmin,
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Criar um novo projeto'
   // #swagger.description = 'Endpoint para criar um projeto no sistema'
+  // #swagger.security = [{ "bearerAuth": [] }]
   /* #swagger.requestBody = {
     required: true,
     content: {
@@ -55,6 +56,7 @@ router.get('/', authenticateToken,
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Listagem de todos os projetos'
   // #swagger.description = 'Endpoint para listar todos os projetos do sistema'
+  // #swagger.security = [{ "bearerAuth": [] }]
   /* #swagger.responses[200] = {
     description: "Projetos listados com sucesso"
   } */
@@ -67,6 +69,7 @@ router.get('/:id', authenticateToken,
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Buscar um projeto pelo ID'
   // #swagger.description = 'Endpoint para buscar um projeto pelo ID'
+  // #swagger.security = [{ "bearerAuth": [] }]
   /* #swagger.parameters['id'] = {
     in: 'path',
     description: 'ID do projeto a ser buscado',
@@ -91,6 +94,7 @@ router.put('/:id', authenticateToken, requireAdmin,
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Atualizar um projeto pelo ID'
   // #swagger.description = 'Endpoint para atualizar um projeto pelo ID'
+  // #swagger.security = [{ "bearerAuth": [] }]
   /* #swagger.parameters['id'] = {
     in: 'path',
     description: 'ID do projeto a ser atualizado',
@@ -149,6 +153,7 @@ router.delete('/:id', authenticateToken, requireAdmin,
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Deletar um projeto pelo ID'
   // #swagger.description = 'Endpoint para deletar um projeto pelo ID'
+  // #swagger.security = [{ "bearerAuth": [] }]
   /* #swagger.parameters['id'] = {
     in: 'path',
     description: 'ID do projeto a ser deletado',
