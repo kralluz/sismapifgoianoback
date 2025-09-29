@@ -1,4 +1,3 @@
-import { title } from 'process';
 import {z} from 'zod';
 
 export const projectSchema = z.object({
@@ -8,3 +7,5 @@ export const projectSchema = z.object({
   endAt: z.string().transform((s) => new Date(s)),
   roomId: z.number().min(1),
 });
+
+export const projectUpdateSchema = projectSchema.partial();

@@ -13,6 +13,12 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
     return res.status(401).json({ error: 'Token de acesso requerido' });
   }
 
+  // Development mode: accept dev token
+  if (token === 'dev-token-for-testing' && process.env.NODE_ENV !== 'production') {
+    (req as any).user = { id: 1, email: 'dev@test.com', role: 'admin' };
+    return next();
+  }
+
   const decoded = verifyToken(token);
   if (!decoded) {
     return res.status(403).json({ error: 'Token inválido ou expirado' });

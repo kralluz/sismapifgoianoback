@@ -10,7 +10,9 @@ export const roomSchema = z.object({
   floor: z.number().min(0),
   building: z.string().max(100),
   amenities: z.array(z.string().max(100)),
-  path: z.any(),
+  path: z.any().optional(),
   projects: z.array(z.number().int()).optional()
 
 });
+
+export const roomUpdateSchema = roomSchema.partial().omit({ projects: true });
