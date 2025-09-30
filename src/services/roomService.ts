@@ -24,6 +24,12 @@ export const findRoomById = async (id: number): Promise<Room | null> => {
 };
 
 export const deleteRoomById = async (id: number): Promise<void> => {
+  // Primeiro, deletar todos os projetos associados à sala
+  await prisma.project.deleteMany({
+    where: { roomId: id },
+  });
+
+  // Depois, deletar a sala
   await prisma.room.delete({
     where: { id },
   });

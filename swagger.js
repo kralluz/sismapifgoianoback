@@ -6,14 +6,69 @@ const doc = {
     description: 'API do Sistema de Mapeamento',
     version: '1.0.0'
   },
-  host: 'localhost:3000',
-  schemes: ['http'],
-  securityDefinitions: {
-    bearerAuth: {
-      type: 'apiKey',
-      name: 'Authorization',
-      in: 'header',
-      description: 'Bearer token. Exemplo: Bearer seu_token_aqui'
+  servers: [
+    {
+      url: 'http://localhost:3000',
+      description: 'Servidor de desenvolvimento'
+    }
+  ],
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Token JWT para autenticação. Formato: Bearer {token}'
+      }
+    },
+    schemas: {
+      Room: {
+        type: 'object',
+        properties: {
+          id: { type: 'integer', example: 1 },
+          name: { type: 'string', example: 'Sala de Reuniões A' },
+          x: { type: 'integer', example: 10 },
+          y: { type: 'integer', example: 20 },
+          description: { type: 'string', example: 'Sala para reuniões pequenas' },
+          capacity: { type: 'integer', example: 10 },
+          type: { type: 'string', example: 'meeting' },
+          floor: { type: 'integer', example: 1 },
+          building: { type: 'string', example: 'Prédio Principal' },
+          amenities: { type: 'array', items: { type: 'string' }, example: ['projetor', 'quadro branco'] },
+          path: { type: 'array', items: { type: 'array', items: { type: 'integer' } }, example: [[10, 10], [20, 15]] },
+          createdAt: { type: 'string', format: 'date-time' },
+          updatedAt: { type: 'string', format: 'date-time', nullable: true }
+        }
+      },
+      Project: {
+        type: 'object',
+        properties: {
+          id: { type: 'integer', example: 1 },
+          title: { type: 'string', example: 'Apresentação de Projeto' },
+          type: { type: 'string', example: 'palestra' },
+          startAt: { type: 'string', format: 'date-time', example: '2025-09-25T10:00:00.000Z' },
+          endAt: { type: 'string', format: 'date-time', example: '2025-09-25T12:00:00.000Z' },
+          roomId: { type: 'integer', example: 1 },
+          room: { $ref: '#/components/schemas/Room' },
+          createdAt: { type: 'string', format: 'date-time' },
+          updatedAt: { type: 'string', format: 'date-time', nullable: true }
+        }
+      },
+      User: {
+        type: 'object',
+        properties: {
+          id: { type: 'integer', example: 1 },
+          nome: { type: 'string', example: 'João Silva' },
+          email: { type: 'string', example: 'joao@email.com' },
+          role: { type: 'string', example: 'user' }
+        }
+      },
+      Error: {
+        type: 'object',
+        properties: {
+          error: { type: 'string', example: 'Mensagem de erro' }
+        }
+      }
     }
   },
   tags: [
@@ -33,50 +88,14 @@ const doc = {
       name: 'Projects',
       description: 'Endpoints de gerenciamento de projetos'
     }
-  ],
-  paths: {
-    '/health': {
-      get: {
-        tags: ['System'],
-        summary: 'Health check do sistema',
-        description: 'Endpoint para verificar se a API está funcionando',
-        responses: {
-          200: {
-            description: 'Sistema funcionando normalmente',
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  properties: {
-                    status: {
-                      type: 'string',
-                      example: 'ok'
-                    },
-                    timestamp: {
-                      type: 'string',
-                      format: 'date-time',
-                      example: '2023-09-03T10:30:00.000Z'
-                    },
-                    uptime: {
-                      type: 'number',
-                      example: 123.456
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  ]
 };
 
 const outputFile = './swagger-output.json';
 const endpointsFiles = [
-  './src/routers/authRouter.ts',
-  './src/routers/roomRouter.ts',
-  './src/routers/projectRouter.ts'
+  './src/app.ts'
 ];
 
-swaggerAutogen(outputFile, endpointsFiles, doc);
+swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
+  console.log('Documentação Swagger gerada com sucesso!');
+});

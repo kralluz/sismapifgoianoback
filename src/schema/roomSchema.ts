@@ -2,8 +2,8 @@ import {z} from 'zod';
 
 export const roomSchema = z.object({
   name: z.string().min(2).max(100),
-  x: z.number().min(0),
-  y: z.number().min(0),
+  x: z.number(),
+  y: z.number(),
   description: z.string().max(500),
   capacity: z.number().min(1),
   type: z.string().max(50),
