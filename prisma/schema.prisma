@@ -34,10 +34,8 @@ model Room {
 
 model Project {
   id        Int      @id @default(autoincrement())
+  number    Int
   title     String
-  type      String   // palestra, apresentação, exposição...
-  startAt   DateTime
-  endAt     DateTime
   roomId    Int
   room      Room     @relation(fields: [roomId], references: [id])
   createdAt DateTime @default(now())
