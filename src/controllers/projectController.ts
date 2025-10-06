@@ -8,15 +8,14 @@ export const createProject = async (req: Request, res: Response) => {
     const projectData = projectSchema.parse(req.body);
 
     const data: Prisma.ProjectCreateInput = {
+      number: projectData.number,
       title: projectData.title,
-      type: projectData.type,
-      startAt: projectData.startAt,
-      endAt: projectData.endAt,
       room: { connect: { id: projectData.roomId } },
     };
     const project = await projectService.createNewProject(data);
     res.status(201).json(project);
   } catch (error) {
+    console.error('Erro ao criar projeto:', error);
     res.status(400).json({ error: 'Erro ao criar projeto.' });
   }
 };
@@ -50,10 +49,8 @@ export const updateProject = async (req: Request, res: Response) => {
   try {
     const projectData = projectUpdateSchema.parse(req.body);
     const data: Prisma.ProjectUpdateInput = {};
+    if (projectData.number !== undefined) data.number = projectData.number;
     if (projectData.title !== undefined) data.title = projectData.title;
-    if (projectData.type !== undefined) data.type = projectData.type;
-    if (projectData.startAt !== undefined) data.startAt = projectData.startAt as any;
-    if (projectData.endAt !== undefined) data.endAt = projectData.endAt as any;
     if (projectData.roomId !== undefined) data.room = { connect: { id: projectData.roomId } };
     const updatedProject = await projectService.updateProject(Number(id), data);
     if (!updatedProject) {

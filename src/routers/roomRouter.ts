@@ -4,7 +4,7 @@ import { authenticateToken, requireAdmin } from '../middlewares/authMiddleware';
 
 const router = Router();
 
-router.post('/', authenticateToken, requireAdmin,
+router.post('/', // authenticateToken, requireAdmin,
   // #swagger.tags = ['Rooms']
   // #swagger.summary = 'Criar uma nova sala'
   // #swagger.description = 'Endpoint para criar uma nova sala no sistema'
