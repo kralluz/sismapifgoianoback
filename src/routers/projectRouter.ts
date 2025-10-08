@@ -4,7 +4,7 @@ import { authenticateToken, requireAdmin } from '../middlewares/authMiddleware';
 
 const router = Router();
 
-router.post('/', // authenticateToken, requireAdmin,
+router.post('/', authenticateToken, requireAdmin,
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Criar um novo projeto'
   // #swagger.description = 'Endpoint para criar um projeto no sistema'
@@ -102,7 +102,7 @@ router.get('/',
   } */
   c.getAllProjects);
 
-router.get('/:id', authenticateToken,
+router.get('/:id',
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Buscar um projeto pelo ID'
   // #swagger.description = 'Endpoint para buscar um projeto pelo ID'

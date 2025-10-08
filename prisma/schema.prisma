@@ -23,9 +23,7 @@ model Room {
   description String
   capacity    Int
   type        String
-  floor       Int
   building    String
-  amenities   String[]
   path        Json
   events      Project[]
   createdAt DateTime @default(now())

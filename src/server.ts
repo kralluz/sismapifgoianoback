@@ -19,6 +19,5 @@ const getNetworkAddress = () => {
 const networkAddress = getNetworkAddress();
 
 app.listen(PORT, HOST, () => {
-  console.log(`Servidor rodando em ${HOST}:${PORT}`);
-  console.log(`A documentação do Swagger está disponível em http://${networkAddress}:${PORT}/api-docs`);
+  // Servidor iniciado
 });

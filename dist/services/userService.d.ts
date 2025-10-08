@@ -1,4 +1,4 @@
-export declare const createDefaultAdmin: () => Promise<void>;
+export declare const getUserCount: () => Promise<number>;
 export declare const createUser: (nome: string, email: string, senha: string, role: string) => Promise<{
     nome: string;
     email: string;

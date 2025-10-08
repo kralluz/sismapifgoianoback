@@ -4,7 +4,7 @@ import { authenticateToken, requireAdmin } from '../middlewares/authMiddleware';
 
 const router = Router();
 
-router.post('/', // authenticateToken, requireAdmin,
+router.post('/', authenticateToken, requireAdmin,
   // #swagger.tags = ['Rooms']
   // #swagger.summary = 'Criar uma nova sala'
   // #swagger.description = 'Endpoint para criar uma nova sala no sistema'
@@ -78,7 +78,7 @@ router.post('/', // authenticateToken, requireAdmin,
     description: "Erro ao criar sala"
   } */
   createNewRoom);
-router.get('/', authenticateToken,
+router.get('/',
   // #swagger.tags = ['Rooms']
   // #swagger.summary = 'Listar todas as salas'
   // #swagger.description = 'Endpoint para listar todas as salas do sistema'
@@ -115,7 +115,7 @@ router.get('/', authenticateToken,
     description: "Erro ao buscar salas"
   } */
   getAllRooms);
-router.get('/:id', authenticateToken,
+router.get('/:id',
   // #swagger.tags = ['Rooms']
   // #swagger.summary = 'Buscar uma sala pelo ID'
   // #swagger.description = 'Endpoint para buscar uma sala pelo ID'

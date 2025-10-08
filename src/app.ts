@@ -10,20 +10,6 @@ const swaggerDocument = require(path.join(process.cwd(), 'swagger-output.json'))
 
 const app = express();
 
-// Middleware para logging de requisições
-app.use((req, res, next) => {
-  console.log('=== Nova Requisição Recebida ===');
-  console.log('Método:', req.method);
-  console.log('URL:', req.url);
-  console.log('Origin:', req.headers.origin);
-  console.log('Headers:', JSON.stringify(req.headers, null, 2));
-  if (req.body && Object.keys(req.body).length > 0) {
-    console.log('Body:', JSON.stringify(req.body, null, 2));
-  }
-  console.log('================================');
-  next();
-});
-
 // CORS configuration for development
 app.use(cors({
   origin: [

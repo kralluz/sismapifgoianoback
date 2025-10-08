@@ -168,9 +168,7 @@ export const updateRoom = async (req: Request, res: Response) => {
     if (parsed.description !== undefined) updateData.description = parsed.description;
     if (parsed.capacity !== undefined) updateData.capacity = parsed.capacity;
     if (parsed.type !== undefined) updateData.type = parsed.type;
-    if (parsed.floor !== undefined) updateData.floor = parsed.floor;
     if (parsed.building !== undefined) updateData.building = parsed.building;
-    if (parsed.amenities !== undefined) updateData.amenities = { set: parsed.amenities };
     if (parsed.path !== undefined) updateData.path = parsed.path as Prisma.InputJsonValue;
 
     const updated = await roomService.updateRoomById(Number(id), updateData);
