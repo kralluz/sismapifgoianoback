@@ -10,17 +10,14 @@ const swaggerDocument = require(path.join(process.cwd(), 'swagger-output.json'))
 
 const app = express();
 
-// CORS configuration for development
+// CORS configuration (configurable via env)
+// Set CORS_ORIGINS to a comma-separated list of allowed origins (e.g. https://example.com,https://app.example.com)
+const rawOrigins = process.env.CORS_ORIGINS || 'http://localhost:3000,http://127.0.0.1:3000';
+const allowedOrigins = rawOrigins.split(',').map(o => o.trim()).filter(Boolean);
+
+// Allow all origins (be careful in production)
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:5173', // Vite default port
-    'http://localhost:5174', // Vite alternative port
-    'http://localhost:4173', // Vite preview port
-    'http://127.0.0.1:5173',
-    'http://127.0.0.1:5174',
-    'http://127.0.0.1:3000'
-  ],
+  origin: true,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
