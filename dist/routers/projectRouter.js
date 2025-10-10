@@ -48,30 +48,23 @@ router.post('/', authMiddleware_1.authenticateToken, authMiddleware_1.requireAdm
       schema: {
         type: "object",
         properties: {
+          number: {
+            type: "integer",
+            example: 1,
+            description: "Número identificador do projeto"
+          },
           title: {
             type: "string",
-            example: "Novo Projeto"
-          },
-          type: {
-            type: "string",
-            example: "Banner"
-          },
-          startAt: {
-            type: "string",
-            format: "date-time",
-            example: "2025-09-25T10:00:00.000Z"
-          },
-          endAt: {
-            type: "string",
-            format: "date-time",
-            example: "2025-09-25T12:00:00.000Z"
+            example: "Novo Projeto",
+            description: "Título do projeto (mínimo 2, máximo 100 caracteres)"
           },
           roomId: {
             type: "integer",
-            example: 1
+            example: 1,
+            description: "ID da sala associada ao projeto"
           }
         },
-        required: ["title", "type", "startAt", "endAt", "roomId"]
+        required: ["number", "title", "roomId"]
       }
     }
   }
@@ -84,12 +77,9 @@ router.post('/', authMiddleware_1.authenticateToken, authMiddleware_1.requireAdm
         type: "object",
         properties: {
           id: { type: "integer", example: 1 },
+          number: { type: "integer", example: 1 },
           title: { type: "string", example: "Novo Projeto" },
-          type: { type: "string", example: "Banner" },
-          startAt: { type: "string", format: "date-time", example: "2025-09-25T10:00:00.000Z" },
-          endAt: { type: "string", format: "date-time", example: "2025-09-25T12:00:00.000Z" },
           roomId: { type: "integer", example: 1 },
-          room: { $ref: "#/components/schemas/Room" },
           createdAt: { type: "string", format: "date-time" },
           updatedAt: { type: "string", format: "date-time", nullable: true }
         }
@@ -115,12 +105,9 @@ router.get('/',
           type: "object",
           properties: {
             id: { type: "integer", example: 1 },
+            number: { type: "integer", example: 1 },
             title: { type: "string", example: "Apresentação de Projeto" },
-            type: { type: "string", example: "palestra" },
-            startAt: { type: "string", format: "date-time", example: "2025-09-25T10:00:00.000Z" },
-            endAt: { type: "string", format: "date-time", example: "2025-09-25T12:00:00.000Z" },
             roomId: { type: "integer", example: 1 },
-            room: { $ref: "#/components/schemas/Room" },
             createdAt: { type: "string", format: "date-time" },
             updatedAt: { type: "string", format: "date-time", nullable: true }
           }
@@ -155,12 +142,9 @@ router.get('/:id',
         type: "object",
         properties: {
           id: { type: "integer", example: 1 },
+          number: { type: "integer", example: 1 },
           title: { type: "string", example: "Apresentação de Projeto" },
-          type: { type: "string", example: "palestra" },
-          startAt: { type: "string", format: "date-time", example: "2025-09-25T10:00:00.000Z" },
-          endAt: { type: "string", format: "date-time", example: "2025-09-25T12:00:00.000Z" },
           roomId: { type: "integer", example: 1 },
-          room: { $ref: "#/components/schemas/Room" },
           createdAt: { type: "string", format: "date-time" },
           updatedAt: { type: "string", format: "date-time", nullable: true }
         }
@@ -196,27 +180,20 @@ router.put('/:id', authMiddleware_1.authenticateToken, authMiddleware_1.requireA
       schema: {
         type: "object",
         properties: {
+          number: {
+            type: "integer",
+            example: 2,
+            description: "Número identificador do projeto"
+          },
           title: {
             type: "string",
-            example: "Projeto Atualizado"
-          },
-          type: {
-            type: "string",
-            example: "Banner"
-          },
-          startAt: {
-            type: "string",
-            format: "date-time",
-            example: "2025-09-25T10:00:00.000Z"
-          },
-          endAt: {
-            type: "string",
-            format: "date-time",
-            example: "2025-09-25T12:00:00.000Z"
+            example: "Projeto Atualizado",
+            description: "Título do projeto (mínimo 2, máximo 100 caracteres)"
           },
           roomId: {
             type: "integer",
-            example: 1
+            example: 1,
+            description: "ID da sala associada ao projeto"
           }
         }
       }
@@ -231,12 +208,9 @@ router.put('/:id', authMiddleware_1.authenticateToken, authMiddleware_1.requireA
         type: "object",
         properties: {
           id: { type: "integer", example: 1 },
+          number: { type: "integer", example: 2 },
           title: { type: "string", example: "Projeto Atualizado" },
-          type: { type: "string", example: "Banner" },
-          startAt: { type: "string", format: "date-time", example: "2025-09-25T10:00:00.000Z" },
-          endAt: { type: "string", format: "date-time", example: "2025-09-25T12:00:00.000Z" },
           roomId: { type: "integer", example: 1 },
-          room: { $ref: "#/components/schemas/Room" },
           createdAt: { type: "string", format: "date-time" },
           updatedAt: { type: "string", format: "date-time" }
         }

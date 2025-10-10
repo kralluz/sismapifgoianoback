@@ -15,30 +15,23 @@ router.post('/', authenticateToken, requireAdmin,
         schema: {
           type: "object",
           properties: {
+            number: {
+              type: "integer",
+              example: 1,
+              description: "Número identificador do projeto"
+            },
             title: {
               type: "string",
-              example: "Novo Projeto"
-            },
-            type: {
-              type: "string",
-              example: "Banner"
-            },
-            startAt: {
-              type: "string",
-              format: "date-time",
-              example: "2025-09-25T10:00:00.000Z"
-            },
-            endAt: {
-              type: "string",
-              format: "date-time",
-              example: "2025-09-25T12:00:00.000Z"
+              example: "Novo Projeto",
+              description: "Título do projeto (mínimo 2, máximo 100 caracteres)"
             },
             roomId: {
               type: "integer",
-              example: 1
+              example: 1,
+              description: "ID da sala associada ao projeto"
             }
           },
-          required: ["title", "type", "startAt", "endAt", "roomId"]
+          required: ["number", "title", "roomId"]
         }
       }
     }
@@ -51,12 +44,25 @@ router.post('/', authenticateToken, requireAdmin,
           type: "object",
           properties: {
             id: { type: "integer", example: 1 },
+            number: { type: "integer", example: 1 },
             title: { type: "string", example: "Novo Projeto" },
-            type: { type: "string", example: "Banner" },
-            startAt: { type: "string", format: "date-time", example: "2025-09-25T10:00:00.000Z" },
-            endAt: { type: "string", format: "date-time", example: "2025-09-25T12:00:00.000Z" },
             roomId: { type: "integer", example: 1 },
-            room: { $ref: "#/components/schemas/Room" },
+            room: {
+              type: "object",
+              properties: {
+                id: { type: "integer", example: 1 },
+                name: { type: "string", example: "Sala de Reuniões A" },
+                x: { type: "integer", example: 10 },
+                y: { type: "integer", example: 20 },
+                description: { type: "string", example: "Sala para reuniões pequenas" },
+                capacity: { type: "integer", example: 10 },
+                type: { type: "string", example: "meeting" },
+                building: { type: "string", example: "Prédio Principal" },
+                path: { type: "object", example: [[20, 15], [25, 20]] },
+                createdAt: { type: "string", format: "date-time" },
+                updatedAt: { type: "string", format: "date-time", nullable: true }
+              }
+            },
             createdAt: { type: "string", format: "date-time" },
             updatedAt: { type: "string", format: "date-time", nullable: true }
           }
@@ -83,12 +89,25 @@ router.get('/',
             type: "object",
             properties: {
               id: { type: "integer", example: 1 },
+              number: { type: "integer", example: 1 },
               title: { type: "string", example: "Apresentação de Projeto" },
-              type: { type: "string", example: "palestra" },
-              startAt: { type: "string", format: "date-time", example: "2025-09-25T10:00:00.000Z" },
-              endAt: { type: "string", format: "date-time", example: "2025-09-25T12:00:00.000Z" },
               roomId: { type: "integer", example: 1 },
-              room: { $ref: "#/components/schemas/Room" },
+              room: {
+                type: "object",
+                properties: {
+                  id: { type: "integer", example: 1 },
+                  name: { type: "string", example: "Sala de Reuniões A" },
+                  x: { type: "integer", example: 10 },
+                  y: { type: "integer", example: 20 },
+                  description: { type: "string", example: "Sala para reuniões pequenas" },
+                  capacity: { type: "integer", example: 10 },
+                  type: { type: "string", example: "meeting" },
+                  building: { type: "string", example: "Prédio Principal" },
+                  path: { type: "object", example: [[20, 15], [25, 20]] },
+                  createdAt: { type: "string", format: "date-time" },
+                  updatedAt: { type: "string", format: "date-time", nullable: true }
+                }
+              },
               createdAt: { type: "string", format: "date-time" },
               updatedAt: { type: "string", format: "date-time", nullable: true }
             }
@@ -124,12 +143,25 @@ router.get('/:id',
           type: "object",
           properties: {
             id: { type: "integer", example: 1 },
+            number: { type: "integer", example: 1 },
             title: { type: "string", example: "Apresentação de Projeto" },
-            type: { type: "string", example: "palestra" },
-            startAt: { type: "string", format: "date-time", example: "2025-09-25T10:00:00.000Z" },
-            endAt: { type: "string", format: "date-time", example: "2025-09-25T12:00:00.000Z" },
             roomId: { type: "integer", example: 1 },
-            room: { $ref: "#/components/schemas/Room" },
+            room: {
+              type: "object",
+              properties: {
+                id: { type: "integer", example: 1 },
+                name: { type: "string", example: "Sala de Reuniões A" },
+                x: { type: "integer", example: 10 },
+                y: { type: "integer", example: 20 },
+                description: { type: "string", example: "Sala para reuniões pequenas" },
+                capacity: { type: "integer", example: 10 },
+                type: { type: "string", example: "meeting" },
+                building: { type: "string", example: "Prédio Principal" },
+                path: { type: "object", example: [[20, 15], [25, 20]] },
+                createdAt: { type: "string", format: "date-time" },
+                updatedAt: { type: "string", format: "date-time", nullable: true }
+              }
+            },
             createdAt: { type: "string", format: "date-time" },
             updatedAt: { type: "string", format: "date-time", nullable: true }
           }
@@ -166,27 +198,20 @@ router.put('/:id', authenticateToken, requireAdmin,
         schema: {
           type: "object",
           properties: {
+            number: {
+              type: "integer",
+              example: 2,
+              description: "Número identificador do projeto"
+            },
             title: {
               type: "string",
-              example: "Projeto Atualizado"
-            },
-            type: {
-              type: "string",
-              example: "Banner"
-            },
-            startAt: {
-              type: "string",
-              format: "date-time",
-              example: "2025-09-25T10:00:00.000Z"
-            },
-            endAt: {
-              type: "string",
-              format: "date-time",
-              example: "2025-09-25T12:00:00.000Z"
+              example: "Projeto Atualizado",
+              description: "Título do projeto (mínimo 2, máximo 100 caracteres)"
             },
             roomId: {
               type: "integer",
-              example: 1
+              example: 1,
+              description: "ID da sala associada ao projeto"
             }
           }
         }
@@ -201,12 +226,25 @@ router.put('/:id', authenticateToken, requireAdmin,
           type: "object",
           properties: {
             id: { type: "integer", example: 1 },
+            number: { type: "integer", example: 2 },
             title: { type: "string", example: "Projeto Atualizado" },
-            type: { type: "string", example: "Banner" },
-            startAt: { type: "string", format: "date-time", example: "2025-09-25T10:00:00.000Z" },
-            endAt: { type: "string", format: "date-time", example: "2025-09-25T12:00:00.000Z" },
             roomId: { type: "integer", example: 1 },
-            room: { $ref: "#/components/schemas/Room" },
+            room: {
+              type: "object",
+              properties: {
+                id: { type: "integer", example: 1 },
+                name: { type: "string", example: "Sala de Reuniões A" },
+                x: { type: "integer", example: 10 },
+                y: { type: "integer", example: 20 },
+                description: { type: "string", example: "Sala para reuniões pequenas" },
+                capacity: { type: "integer", example: 10 },
+                type: { type: "string", example: "meeting" },
+                building: { type: "string", example: "Prédio Principal" },
+                path: { type: "object", example: [[20, 15], [25, 20]] },
+                createdAt: { type: "string", format: "date-time" },
+                updatedAt: { type: "string", format: "date-time", nullable: true }
+              }
+            },
             createdAt: { type: "string", format: "date-time" },
             updatedAt: { type: "string", format: "date-time" }
           }

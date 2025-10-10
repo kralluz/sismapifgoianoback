@@ -19,5 +19,10 @@ const getNetworkAddress = () => {
 const networkAddress = getNetworkAddress();
 
 app.listen(PORT, HOST, () => {
-  // Servidor iniciado
+  console.log('='.repeat(60));
+  console.log(`🚀 API iniciada em http://${networkAddress}:${PORT}`);
+  console.log(`📚 Documentação da API disponível em:`);
+  console.log(`   → http://${networkAddress}:${PORT}/api-docs`);
+  console.log(`   → http://localhost:${PORT}/api-docs`);
+  console.log('='.repeat(60));
 });
