@@ -4,7 +4,7 @@ import { authenticateToken, requireAdmin } from '../middlewares/authMiddleware';
 
 const router = Router();
 
-router.post('/', authenticateToken, requireAdmin,
+router.post('/',
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Criar um novo projeto'
   // #swagger.description = 'Endpoint para criar um projeto no sistema'
@@ -176,7 +176,7 @@ router.get('/:id',
   } */
   c.findProjectById);
 
-router.put('/:id', authenticateToken, requireAdmin,
+router.put('/:id',
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Atualizar um projeto pelo ID'
   // #swagger.description = 'Endpoint para atualizar um projeto pelo ID'
@@ -259,7 +259,7 @@ router.put('/:id', authenticateToken, requireAdmin,
   } */
   c.updateProject);
 
-router.delete('/:id', authenticateToken, requireAdmin,
+router.delete('/:id',
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Deletar um projeto pelo ID'
   // #swagger.description = 'Endpoint para deletar um projeto pelo ID'

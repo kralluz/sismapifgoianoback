@@ -4,7 +4,7 @@ import { authenticateToken, requireAdmin } from '../middlewares/authMiddleware';
 
 const router = Router();
 
-router.post('/', authenticateToken, requireAdmin,
+router.post('/',
   // #swagger.tags = ['Rooms']
   // #swagger.summary = 'Criar uma nova sala'
   // #swagger.description = 'Endpoint para criar uma nova sala no sistema'
@@ -119,7 +119,7 @@ router.get('/:id',
   /* #swagger.responses[404] = { description: "Sala não encontrada" } */
   /* #swagger.responses[400] = { description: "Erro ao buscar sala" } */
   findRoomById);
-router.put('/:id', authenticateToken, requireAdmin,
+router.put('/:id',
   // #swagger.tags = ['Rooms']
   // #swagger.summary = 'Atualizar uma sala pelo ID'
   // #swagger.description = 'Endpoint para atualizar uma sala pelo ID'
@@ -204,6 +204,6 @@ router.put('/:id', authenticateToken, requireAdmin,
     description: "Sala não encontrada"
   } */
   updateRoom);
-router.delete('/:id', authenticateToken, requireAdmin, deleteRoom);
+router.delete('/:id', deleteRoom);
 
 export default router;
