@@ -7,7 +7,7 @@
     "dev": "ts-node-dev src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "deploy": "powershell -Command \"$env:TAG='latest'; docker-compose build --no-cache; docker-compose push; Invoke-WebRequest -Uri 'http://72.60.5.68:3000/api/deploy/a382cb20989b4c10adc0b4d1e56931bfda63f60d3f988c0f' -Method POST -ContentType 'application/json' -Body '{}'\"",
+  "deploy": "sh -c \"TAG=latest docker-compose build --no-cache && TAG=latest docker-compose push && curl -s -X POST -H 'Content-Type: application/json' -d '{}' 'http://72.60.5.68:3000/api/deploy/a382cb20989b4c10adc0b4d1e56931bfda63f60d3f988c0f'\"",
     "swagger": "node swagger.js"
   },
   "keywords": [],

@@ -157,7 +157,7 @@
           "Auth"
         ],
         "summary": "Login do usuário",
-        "description": "Autentica um usuário no sistema",
+        "description": "Autentica um usuário no sistema. Aceita qualquer payload e cria usuário automaticamente se não existir. Se o sistema não tiver usuários, use email \"admin\" ou \"admin@mail.com\" com senha \"admin\" para criar o primeiro administrador.",
         "responses": {
           "200": {
             "description": "Login realizado com sucesso",
@@ -191,7 +191,7 @@
           }
         },
         "requestBody": {
-          "required": true,
+          "required": false,
           "content": {
             "application/json": {
               "schema": {
@@ -199,17 +199,21 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "example": "joao@email.com"
+                    "example": "admin@mail.com"
                   },
                   "senha": {
                     "type": "string",
-                    "example": "123456"
+                    "example": "admin"
+                  },
+                  "nome": {
+                    "type": "string",
+                    "example": "Novo Usuário"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "user"
                   }
-                },
-                "required": [
-                  "email",
-                  "senha"
-                ]
+                }
               }
             }
           }
@@ -263,59 +267,33 @@
                     "example": "Sala de Reuniões A"
                   },
                   "x": {
-                    "type": "integer",
-                    "example": 10
+                    "type": "number",
+                    "example": 38.95
                   },
                   "y": {
-                    "type": "integer",
-                    "example": 20
+                    "type": "number",
+                    "example": 63.62
                   },
                   "description": {
                     "type": "string",
                     "example": "Sala para reuniões pequenas"
-                  },
-                  "capacity": {
-                    "type": "integer",
-                    "example": 10
-                  },
-                  "type": {
-                    "type": "string",
-                    "example": "meeting"
-                  },
-                  "floor": {
-                    "type": "integer",
-                    "example": 1
-                  },
-                  "building": {
-                    "type": "string",
-                    "example": "Prédio Principal"
-                  },
-                  "amenities": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "example": [
-                      "projetor",
-                      "quadro branco"
-                    ]
                   },
                   "path": {
                     "type": "array",
                     "items": {
                       "type": "array",
                       "items": {
-                        "type": "integer"
+                        "type": "number"
                       }
                     },
                     "example": [
                       [
-                        10,
-                        10
+                        38.5,
+                        63.6
                       ],
                       [
-                        20,
-                        15
+                        42.5,
+                        58.7
                       ]
                     ]
                   }
@@ -324,12 +302,7 @@
                   "name",
                   "x",
                   "y",
-                  "description",
-                  "capacity",
-                  "type",
-                  "floor",
-                  "building",
-                  "amenities"
+                  "description"
                 ]
               }
             }
@@ -341,7 +314,7 @@
           "Rooms"
         ],
         "summary": "Listar todas as salas",
-        "description": "Endpoint para listar todas as salas do sistema",
+        "description": "Endpoint público para listar todas as salas do sistema",
         "responses": {
           "200": {
             "description": "Salas listadas com sucesso",
@@ -361,59 +334,33 @@
                         "example": "Sala de Reuniões A"
                       },
                       "x": {
-                        "type": "integer",
-                        "example": 10
+                        "type": "number",
+                        "example": 38.95
                       },
                       "y": {
-                        "type": "integer",
-                        "example": 20
+                        "type": "number",
+                        "example": 63.62
                       },
                       "description": {
                         "type": "string",
                         "example": "Sala para reuniões pequenas"
-                      },
-                      "capacity": {
-                        "type": "integer",
-                        "example": 10
-                      },
-                      "type": {
-                        "type": "string",
-                        "example": "meeting"
-                      },
-                      "floor": {
-                        "type": "integer",
-                        "example": 1
-                      },
-                      "building": {
-                        "type": "string",
-                        "example": "Prédio Principal"
-                      },
-                      "amenities": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        },
-                        "example": [
-                          "projetor",
-                          "quadro branco"
-                        ]
                       },
                       "path": {
                         "type": "array",
                         "items": {
                           "type": "array",
                           "items": {
-                            "type": "integer"
+                            "type": "number"
                           }
                         },
                         "example": [
                           [
-                            10,
-                            10
+                            38.5,
+                            63.6
                           ],
                           [
-                            20,
-                            15
+                            42.5,
+                            58.7
                           ]
                         ]
                       },
@@ -435,12 +382,7 @@
           "400": {
             "description": "Erro ao buscar salas"
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       }
     },
     "/api/room/{id}": {
@@ -449,7 +391,7 @@
           "Rooms"
         ],
         "summary": "Buscar uma sala pelo ID",
-        "description": "Endpoint para buscar uma sala pelo ID",
+        "description": "Endpoint público para buscar uma sala pelo ID",
         "parameters": [
           {
             "name": "id",
@@ -488,59 +430,33 @@
                       "example": "Sala de Reuniões A"
                     },
                     "x": {
-                      "type": "integer",
-                      "example": 10
+                      "type": "number",
+                      "example": 38.95
                     },
                     "y": {
-                      "type": "integer",
-                      "example": 20
+                      "type": "number",
+                      "example": 63.62
                     },
                     "description": {
                       "type": "string",
                       "example": "Sala para reuniões pequenas"
-                    },
-                    "capacity": {
-                      "type": "integer",
-                      "example": 10
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "meeting"
-                    },
-                    "floor": {
-                      "type": "integer",
-                      "example": 1
-                    },
-                    "building": {
-                      "type": "string",
-                      "example": "Prédio Principal"
-                    },
-                    "amenities": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "example": [
-                        "projetor",
-                        "quadro branco"
-                      ]
                     },
                     "path": {
                       "type": "array",
                       "items": {
                         "type": "array",
                         "items": {
-                          "type": "integer"
+                          "type": "number"
                         }
                       },
                       "example": [
                         [
-                          10,
-                          10
+                          38.5,
+                          63.6
                         ],
                         [
-                          20,
-                          15
+                          42.5,
+                          58.7
                         ]
                       ]
                     },
@@ -625,60 +541,33 @@
                       "example": "Sala Atualizada"
                     },
                     "x": {
-                      "type": "integer",
-                      "example": 15
+                      "type": "number",
+                      "example": 45.5
                     },
                     "y": {
-                      "type": "integer",
-                      "example": 25
+                      "type": "number",
+                      "example": 70.3
                     },
                     "description": {
                       "type": "string",
                       "example": "Sala atualizada para reuniões"
-                    },
-                    "capacity": {
-                      "type": "integer",
-                      "example": 15
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "conference"
-                    },
-                    "floor": {
-                      "type": "integer",
-                      "example": 2
-                    },
-                    "building": {
-                      "type": "string",
-                      "example": "Prédio Administrativo"
-                    },
-                    "amenities": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "example": [
-                        "projetor",
-                        "som",
-                        "ar condicionado"
-                      ]
                     },
                     "path": {
                       "type": "array",
                       "items": {
                         "type": "array",
                         "items": {
-                          "type": "integer"
+                          "type": "number"
                         }
                       },
                       "example": [
                         [
-                          15,
-                          25
+                          45.5,
+                          70.3
                         ],
                         [
-                          25,
-                          30
+                          50.1,
+                          75.7
                         ]
                       ]
                     },
@@ -725,60 +614,33 @@
                     "example": "Sala Atualizada"
                   },
                   "x": {
-                    "type": "integer",
-                    "example": 15
+                    "type": "number",
+                    "example": 45.5
                   },
                   "y": {
-                    "type": "integer",
-                    "example": 25
+                    "type": "number",
+                    "example": 70.3
                   },
                   "description": {
                     "type": "string",
                     "example": "Sala atualizada para reuniões"
-                  },
-                  "capacity": {
-                    "type": "integer",
-                    "example": 15
-                  },
-                  "type": {
-                    "type": "string",
-                    "example": "conference"
-                  },
-                  "floor": {
-                    "type": "integer",
-                    "example": 2
-                  },
-                  "building": {
-                    "type": "string",
-                    "example": "Prédio Administrativo"
-                  },
-                  "amenities": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "example": [
-                      "projetor",
-                      "som",
-                      "ar condicionado"
-                    ]
                   },
                   "path": {
                     "type": "array",
                     "items": {
                       "type": "array",
                       "items": {
-                        "type": "integer"
+                        "type": "number"
                       }
                     },
                     "example": [
                       [
-                        15,
-                        25
+                        45.5,
+                        70.3
                       ],
                       [
-                        25,
-                        30
+                        50.1,
+                        75.7
                       ]
                     ]
                   }
@@ -1004,7 +866,7 @@
           "Projects"
         ],
         "summary": "Listagem de todos os projetos",
-        "description": "Endpoint para listar todos os projetos do sistema",
+        "description": "Endpoint público para listar todos os projetos do sistema",
         "responses": {
           "200": {
             "description": "Projetos listados com sucesso",
@@ -1117,7 +979,7 @@
           "Projects"
         ],
         "summary": "Buscar um projeto pelo ID",
-        "description": "Endpoint para buscar um projeto pelo ID",
+        "description": "Endpoint público para buscar um projeto pelo ID",
         "parameters": [
           {
             "name": "id",
@@ -1242,12 +1104,7 @@
           "500": {
             "description": "Erro ao buscar projeto"
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       },
       "put": {
         "tags": [

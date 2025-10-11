@@ -5,9 +5,6 @@ export const roomSchema = z.object({
   x: z.number(),
   y: z.number(),
   description: z.string().max(500),
-  capacity: z.number().min(1),
-  type: z.string().max(50),
-  building: z.string().max(100),
   path: z.any().optional(),
   projects: z.array(z.number().int()).optional()
 

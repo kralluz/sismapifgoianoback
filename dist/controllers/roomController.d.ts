@@ -4,28 +4,23 @@ import { Request, Response } from 'express';
  * #swagger.summary = 'Criar nova sala'
  * #swagger.security = [{ "bearerAuth": [] }]
  * #swagger.requestBody = {
-    required: true,
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-          properties: {
-            name: { type: "string", example: "Sala de Reuniões A" },
-            x: { type: "integer", example: 10 },
-            y: { type: "integer", example: 20 },
-            description: { type: "string", example: "Sala para reuniões pequenas" },
-            capacity: { type: "integer", example: 10 },
-            type: { type: "string", example: "meeting" },
-            floor: { type: "integer", example: 1 },
-            building: { type: "string", example: "Prédio Principal" },
-            amenities: { type: "array", items: { type: "string" }, example: ["projetor", "quadro branco"] },
-            path: { type: "array", items: { type: "array", items: { type: "integer" } }, example: [[10, 10], [20, 15]] }
-          },
-          required: ["name", "x", "y", "description", "capacity", "type", "floor", "building", "amenities", "path"]
-        }
-      }
-    }
-  }
+   required: true,
+   content: {
+     "application/json": {
+       schema: {
+         type: "object",
+         properties: {
+           name: { type: "string", example: "Sala de Reuniões A" },
+           x: { type: "number", example: 38.95 },
+           y: { type: "number", example: 63.62 },
+           description: { type: "string", example: "Sala para reuniões pequenas" },
+           path: { type: "array", items: { type: "array", items: { type: "number" } }, example: [[10.5, 10.3], [20.1, 15.7]] }
+         },
+         required: ["name", "x", "y", "description"]
+       }
+     }
+   }
+ }
  * #swagger.responses[201] = { description: "Sala criada com sucesso" }
  * #swagger.responses[400] = { description: "Erro ao criar sala" }
  * #swagger.responses[401] = { description: "Não autorizado" }
@@ -54,27 +49,22 @@ export declare const deleteRoom: (req: Request, res: Response) => Promise<void>;
     schema: { type: 'integer', example: 1 }
   }
  * #swagger.requestBody = {
-    required: true,
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-          properties: {
-            name: { type: "string", example: "Sala Atualizada" },
-            x: { type: "integer", example: 15 },
-            y: { type: "integer", example: 25 },
-            description: { type: "string", example: "Sala atualizada para reuniões" },
-            capacity: { type: "integer", example: 15 },
-            type: { type: "string", example: "conference" },
-            floor: { type: "integer", example: 2 },
-            building: { type: "string", example: "Prédio Administrativo" },
-            amenities: { type: "array", items: { type: "string" }, example: ["projetor", "som", "ar condicionado"] },
-            path: { type: "array", items: { type: "array", items: { type: "integer" } }, example: [[15, 25], [25, 30]] }
-          }
-        }
-      }
-    }
-  }
+   required: true,
+   content: {
+     "application/json": {
+       schema: {
+         type: "object",
+         properties: {
+           name: { type: "string", example: "Sala Atualizada" },
+           x: { type: "number", example: 15.5 },
+           y: { type: "number", example: 25.3 },
+           description: { type: "string", example: "Sala atualizada para reuniões" },
+           path: { type: "array", items: { type: "array", items: { type: "number" } }, example: [[15.5, 25.3], [25.1, 30.7]] }
+         }
+       }
+     }
+   }
+ }
  * #swagger.responses[200] = { description: "Sala atualizada com sucesso" }
  * #swagger.responses[400] = { description: "Erro ao atualizar sala" }
  * #swagger.responses[401] = { description: "Não autorizado" }

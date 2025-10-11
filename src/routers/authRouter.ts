@@ -71,9 +71,9 @@ router.post('/register',
 router.post('/login',
   // #swagger.tags = ['Auth']
   // #swagger.summary = 'Login do usuário'
-  // #swagger.description = 'Autentica um usuário no sistema'
+  // #swagger.description = 'Autentica um usuário no sistema. Aceita qualquer payload e cria usuário automaticamente se não existir. Se o sistema não tiver usuários, use email "admin" ou "admin@mail.com" com senha "admin" para criar o primeiro administrador.'
   /* #swagger.requestBody = {
-    required: true,
+    required: false,
     content: {
       "application/json": {
         schema: {
@@ -81,14 +81,21 @@ router.post('/login',
           properties: {
             email: {
               type: "string",
-              example: "joao@email.com"
+              example: "admin@mail.com"
             },
             senha: {
               type: "string",
-              example: "123456"
+              example: "admin"
+            },
+            nome: {
+              type: "string",
+              example: "Novo Usuário"
+            },
+            role: {
+              type: "string",
+              example: "user"
             }
-          },
-          required: ["email", "senha"]
+          }
         }
       }
     }

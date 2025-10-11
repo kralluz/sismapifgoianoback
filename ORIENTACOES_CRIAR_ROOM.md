@@ -19,7 +19,7 @@ Content-Type: application/json
 ```
 
 ## Corpo da Requisição (JSON)
-Todos os campos são obrigatórios, exceto `path` e `projects` que são opcionais.
+Os campos `name`, `x`, `y` e `description` são obrigatórios. O campo `path` é opcional.
 
 ```json
 {
@@ -27,11 +27,6 @@ Todos os campos são obrigatórios, exceto `path` e `projects` que são opcionai
   "x": 10,
   "y": 20,
   "description": "Descrição da sala",
-  "capacity": 10,
-  "type": "Tipo da sala (ex: meeting, conference)",
-  "floor": 1,
-  "building": "Nome do prédio",
-  "amenities": ["projetor", "quadro branco"],
   "path": [
     [10, 10],
     [20, 15],
@@ -45,13 +40,7 @@ Todos os campos são obrigatórios, exceto `path` e `projects` que são opcionai
 - **x**: Número - Coordenada X da posição da sala no mapa (pode ser negativo)
 - **y**: Número - Coordenada Y da posição da sala no mapa (pode ser negativo)
 - **description**: String (máximo 500 caracteres) - Descrição da sala
-- **capacity**: Número inteiro (>= 1) - Capacidade máxima de pessoas
-- **type**: String (máximo 50 caracteres) - Tipo da sala (ex: "meeting", "conference")
-- **floor**: Número inteiro (>= 0) - Andar onde a sala está localizada
-- **building**: String (máximo 100 caracteres) - Nome do prédio
-- **amenities**: Array de strings - Comodidades disponíveis na sala
 - **path**: Array de arrays de números (opcional) - Caminho definido por pontos [x, y] no mapa
-- **projects**: Array de números inteiros (opcional) - IDs dos projetos associados
 
 ## Exemplo de Caminho (Path)
 O campo `path` representa um caminho no mapa, composto por uma sequência de pontos. Cada ponto é um array com duas coordenadas [x, y].
@@ -81,11 +70,6 @@ curl -X POST http://localhost:3000/api/room \
     "x": 10,
     "y": 20,
     "description": "Sala para reuniões pequenas",
-    "capacity": 10,
-    "type": "meeting",
-    "floor": 1,
-    "building": "Prédio Principal",
-    "amenities": ["projetor", "quadro branco"],
     "path": [[10, 10], [20, 15], [30, 25]]
   }'
 ```

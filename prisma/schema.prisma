@@ -18,12 +18,9 @@ model Usuario {
 model Room {
   id          Int     @id @default(autoincrement())
   name        String
-  x           Int
-  y           Int
+  x           Float
+  y           Float
   description String
-  capacity    Int
-  type        String
-  building    String
   path        Json
   events      Project[]
   createdAt DateTime @default(now())

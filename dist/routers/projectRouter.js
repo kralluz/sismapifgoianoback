@@ -80,6 +80,22 @@ router.post('/', authMiddleware_1.authenticateToken, authMiddleware_1.requireAdm
           number: { type: "integer", example: 1 },
           title: { type: "string", example: "Novo Projeto" },
           roomId: { type: "integer", example: 1 },
+          room: {
+            type: "object",
+            properties: {
+              id: { type: "integer", example: 1 },
+              name: { type: "string", example: "Sala de Reuniões A" },
+              x: { type: "integer", example: 10 },
+              y: { type: "integer", example: 20 },
+              description: { type: "string", example: "Sala para reuniões pequenas" },
+              capacity: { type: "integer", example: 10 },
+              type: { type: "string", example: "meeting" },
+              building: { type: "string", example: "Prédio Principal" },
+              path: { type: "object", example: [[20, 15], [25, 20]] },
+              createdAt: { type: "string", format: "date-time" },
+              updatedAt: { type: "string", format: "date-time", nullable: true }
+            }
+          },
           createdAt: { type: "string", format: "date-time" },
           updatedAt: { type: "string", format: "date-time", nullable: true }
         }
@@ -94,7 +110,7 @@ c.createProject);
 router.get('/', 
 // #swagger.tags = ['Projects']
 // #swagger.summary = 'Listagem de todos os projetos'
-// #swagger.description = 'Endpoint para listar todos os projetos do sistema'
+// #swagger.description = 'Endpoint público para listar todos os projetos do sistema'
 /* #swagger.responses[200] = {
   description: "Projetos listados com sucesso",
   content: {
@@ -108,6 +124,22 @@ router.get('/',
             number: { type: "integer", example: 1 },
             title: { type: "string", example: "Apresentação de Projeto" },
             roomId: { type: "integer", example: 1 },
+            room: {
+              type: "object",
+              properties: {
+                id: { type: "integer", example: 1 },
+                name: { type: "string", example: "Sala de Reuniões A" },
+                x: { type: "integer", example: 10 },
+                y: { type: "integer", example: 20 },
+                description: { type: "string", example: "Sala para reuniões pequenas" },
+                capacity: { type: "integer", example: 10 },
+                type: { type: "string", example: "meeting" },
+                building: { type: "string", example: "Prédio Principal" },
+                path: { type: "object", example: [[20, 15], [25, 20]] },
+                createdAt: { type: "string", format: "date-time" },
+                updatedAt: { type: "string", format: "date-time", nullable: true }
+              }
+            },
             createdAt: { type: "string", format: "date-time" },
             updatedAt: { type: "string", format: "date-time", nullable: true }
           }
@@ -123,8 +155,7 @@ c.getAllProjects);
 router.get('/:id', 
 // #swagger.tags = ['Projects']
 // #swagger.summary = 'Buscar um projeto pelo ID'
-// #swagger.description = 'Endpoint para buscar um projeto pelo ID'
-// #swagger.security = [{ "bearerAuth": [] }]
+// #swagger.description = 'Endpoint público para buscar um projeto pelo ID'
 /* #swagger.parameters['id'] = {
   in: 'path',
   description: 'ID do projeto a ser buscado',
@@ -145,6 +176,22 @@ router.get('/:id',
           number: { type: "integer", example: 1 },
           title: { type: "string", example: "Apresentação de Projeto" },
           roomId: { type: "integer", example: 1 },
+          room: {
+            type: "object",
+            properties: {
+              id: { type: "integer", example: 1 },
+              name: { type: "string", example: "Sala de Reuniões A" },
+              x: { type: "integer", example: 10 },
+              y: { type: "integer", example: 20 },
+              description: { type: "string", example: "Sala para reuniões pequenas" },
+              capacity: { type: "integer", example: 10 },
+              type: { type: "string", example: "meeting" },
+              building: { type: "string", example: "Prédio Principal" },
+              path: { type: "object", example: [[20, 15], [25, 20]] },
+              createdAt: { type: "string", format: "date-time" },
+              updatedAt: { type: "string", format: "date-time", nullable: true }
+            }
+          },
           createdAt: { type: "string", format: "date-time" },
           updatedAt: { type: "string", format: "date-time", nullable: true }
         }
@@ -211,6 +258,22 @@ router.put('/:id', authMiddleware_1.authenticateToken, authMiddleware_1.requireA
           number: { type: "integer", example: 2 },
           title: { type: "string", example: "Projeto Atualizado" },
           roomId: { type: "integer", example: 1 },
+          room: {
+            type: "object",
+            properties: {
+              id: { type: "integer", example: 1 },
+              name: { type: "string", example: "Sala de Reuniões A" },
+              x: { type: "integer", example: 10 },
+              y: { type: "integer", example: 20 },
+              description: { type: "string", example: "Sala para reuniões pequenas" },
+              capacity: { type: "integer", example: 10 },
+              type: { type: "string", example: "meeting" },
+              building: { type: "string", example: "Prédio Principal" },
+              path: { type: "object", example: [[20, 15], [25, 20]] },
+              createdAt: { type: "string", format: "date-time" },
+              updatedAt: { type: "string", format: "date-time", nullable: true }
+            }
+          },
           createdAt: { type: "string", format: "date-time" },
           updatedAt: { type: "string", format: "date-time" }
         }

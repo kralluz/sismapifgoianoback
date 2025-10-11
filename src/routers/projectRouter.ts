@@ -78,7 +78,7 @@ router.post('/', authenticateToken, requireAdmin,
 router.get('/',
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Listagem de todos os projetos'
-  // #swagger.description = 'Endpoint para listar todos os projetos do sistema'
+  // #swagger.description = 'Endpoint público para listar todos os projetos do sistema'
   /* #swagger.responses[200] = {
     description: "Projetos listados com sucesso",
     content: {
@@ -124,8 +124,7 @@ router.get('/',
 router.get('/:id',
   // #swagger.tags = ['Projects']
   // #swagger.summary = 'Buscar um projeto pelo ID'
-  // #swagger.description = 'Endpoint para buscar um projeto pelo ID'
-  // #swagger.security = [{ "bearerAuth": [] }]
+  // #swagger.description = 'Endpoint público para buscar um projeto pelo ID'
   /* #swagger.parameters['id'] = {
     in: 'path',
     description: 'ID do projeto a ser buscado',

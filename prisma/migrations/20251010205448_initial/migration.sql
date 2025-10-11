@@ -1,3 +1,6 @@
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "public";
+
 -- CreateTable
 CREATE TABLE "public"."Usuario" (
     "id" SERIAL NOT NULL,
@@ -17,31 +20,22 @@ CREATE TABLE "public"."Room" (
     "y" INTEGER NOT NULL,
     "description" TEXT NOT NULL,
     "capacity" INTEGER NOT NULL,
-    "type" TEXT NOT NULL,
-    "floor" INTEGER NOT NULL,
     "building" TEXT NOT NULL,
     "path" JSONB NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "Room_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "public"."Amenity" (
-    "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
-    "roomId" INTEGER NOT NULL,
-
-    CONSTRAINT "Amenity_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "public"."Project" (
     "id" SERIAL NOT NULL,
+    "number" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
-    "type" TEXT NOT NULL,
-    "startAt" TIMESTAMP(3) NOT NULL,
-    "endAt" TIMESTAMP(3) NOT NULL,
     "roomId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "Project_pkey" PRIMARY KEY ("id")
 );
@@ -50,7 +44,5 @@ CREATE TABLE "public"."Project" (
 CREATE UNIQUE INDEX "Usuario_email_key" ON "public"."Usuario"("email");
 
 -- AddForeignKey
-ALTER TABLE "public"."Amenity" ADD CONSTRAINT "Amenity_roomId_fkey" FOREIGN KEY ("roomId") REFERENCES "public"."Room"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "public"."Project" ADD CONSTRAINT "Project_roomId_fkey" FOREIGN KEY ("roomId") REFERENCES "public"."Room"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+

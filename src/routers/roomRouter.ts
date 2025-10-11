@@ -21,52 +21,29 @@ router.post('/', authenticateToken, requireAdmin,
               example: "Sala de Reuniões A"
             },
             x: {
-              type: "integer",
-              example: 10
+              type: "number",
+              example: 38.95
             },
             y: {
-              type: "integer",
-              example: 20
+              type: "number",
+              example: 63.62
             },
             description: {
               type: "string",
               example: "Sala para reuniões pequenas"
-            },
-            capacity: {
-              type: "integer",
-              example: 10
-            },
-            type: {
-              type: "string",
-              example: "meeting"
-            },
-            floor: {
-              type: "integer",
-              example: 1
-            },
-            building: {
-              type: "string",
-              example: "Prédio Principal"
-            },
-            amenities: {
-              type: "array",
-              items: {
-                type: "string"
-              },
-              example: ["projetor", "quadro branco"]
             },
             path: {
               type: "array",
               items: {
                 type: "array",
                 items: {
-                  type: "integer"
+                  type: "number"
                 }
               },
-              example: [[10, 10], [20, 15]]
+              example: [[38.5, 63.6], [42.5, 58.7]]
             }
           },
-          required: ["name", "x", "y", "description", "capacity", "type", "floor", "building", "amenities"]
+          required: ["name", "x", "y", "description"]
         }
       }
     }
@@ -81,8 +58,7 @@ router.post('/', authenticateToken, requireAdmin,
 router.get('/',
   // #swagger.tags = ['Rooms']
   // #swagger.summary = 'Listar todas as salas'
-  // #swagger.description = 'Endpoint para listar todas as salas do sistema'
-  // #swagger.security = [{ "bearerAuth": [] }]
+  // #swagger.description = 'Endpoint público para listar todas as salas do sistema'
   /* #swagger.responses[200] = {
     description: "Salas listadas com sucesso",
     content: {
@@ -94,15 +70,10 @@ router.get('/',
             properties: {
               id: { type: "integer", example: 1 },
               name: { type: "string", example: "Sala de Reuniões A" },
-              x: { type: "integer", example: 10 },
-              y: { type: "integer", example: 20 },
+              x: { type: "number", example: 38.95 },
+              y: { type: "number", example: 63.62 },
               description: { type: "string", example: "Sala para reuniões pequenas" },
-              capacity: { type: "integer", example: 10 },
-              type: { type: "string", example: "meeting" },
-              floor: { type: "integer", example: 1 },
-              building: { type: "string", example: "Prédio Principal" },
-              amenities: { type: "array", items: { type: "string" }, example: ["projetor", "quadro branco"] },
-              path: { type: "array", items: { type: "array", items: { type: "integer" } }, example: [[10, 10], [20, 15]] },
+              path: { type: "array", items: { type: "array", items: { type: "number" } }, example: [[38.5, 63.6], [42.5, 58.7]] },
               createdAt: { type: "string", format: "date-time" },
               updatedAt: { type: "string", format: "date-time", nullable: true }
             }
@@ -118,8 +89,7 @@ router.get('/',
 router.get('/:id',
   // #swagger.tags = ['Rooms']
   // #swagger.summary = 'Buscar uma sala pelo ID'
-  // #swagger.description = 'Endpoint para buscar uma sala pelo ID'
-  // #swagger.security = [{ "bearerAuth": [] }]
+  // #swagger.description = 'Endpoint público para buscar uma sala pelo ID'
   /* #swagger.parameters['id'] = {
     in: 'path',
     description: 'ID da sala a ser buscada',
@@ -135,15 +105,10 @@ router.get('/:id',
           properties: {
             id: { type: "integer", example: 1 },
             name: { type: "string", example: "Sala de Reuniões A" },
-            x: { type: "integer", example: 10 },
-            y: { type: "integer", example: 20 },
+            x: { type: "number", example: 38.95 },
+            y: { type: "number", example: 63.62 },
             description: { type: "string", example: "Sala para reuniões pequenas" },
-            capacity: { type: "integer", example: 10 },
-            type: { type: "string", example: "meeting" },
-            floor: { type: "integer", example: 1 },
-            building: { type: "string", example: "Prédio Principal" },
-            amenities: { type: "array", items: { type: "string" }, example: ["projetor", "quadro branco"] },
-            path: { type: "array", items: { type: "array", items: { type: "integer" } }, example: [[10, 10], [20, 15]] },
+            path: { type: "array", items: { type: "array", items: { type: "number" } }, example: [[38.5, 63.6], [42.5, 58.7]] },
             createdAt: { type: "string", format: "date-time" },
             updatedAt: { type: "string", format: "date-time", nullable: true }
           }
@@ -180,49 +145,26 @@ router.put('/:id', authenticateToken, requireAdmin,
               example: "Sala Atualizada"
             },
             x: {
-              type: "integer",
-              example: 15
+              type: "number",
+              example: 45.5
             },
             y: {
-              type: "integer",
-              example: 25
+              type: "number",
+              example: 70.3
             },
             description: {
               type: "string",
               example: "Sala atualizada para reuniões"
-            },
-            capacity: {
-              type: "integer",
-              example: 15
-            },
-            type: {
-              type: "string",
-              example: "conference"
-            },
-            floor: {
-              type: "integer",
-              example: 2
-            },
-            building: {
-              type: "string",
-              example: "Prédio Administrativo"
-            },
-            amenities: {
-              type: "array",
-              items: {
-                type: "string"
-              },
-              example: ["projetor", "som", "ar condicionado"]
             },
             path: {
               type: "array",
               items: {
                 type: "array",
                 items: {
-                  type: "integer"
+                  type: "number"
                 }
               },
-              example: [[15, 25], [25, 30]]
+              example: [[45.5, 70.3], [50.1, 75.7]]
             }
           }
         }
@@ -238,15 +180,10 @@ router.put('/:id', authenticateToken, requireAdmin,
           properties: {
             id: { type: "integer", example: 1 },
             name: { type: "string", example: "Sala Atualizada" },
-            x: { type: "integer", example: 15 },
-            y: { type: "integer", example: 25 },
+            x: { type: "number", example: 45.5 },
+            y: { type: "number", example: 70.3 },
             description: { type: "string", example: "Sala atualizada para reuniões" },
-            capacity: { type: "integer", example: 15 },
-            type: { type: "string", example: "conference" },
-            floor: { type: "integer", example: 2 },
-            building: { type: "string", example: "Prédio Administrativo" },
-            amenities: { type: "array", items: { type: "string" }, example: ["projetor", "som", "ar condicionado"] },
-            path: { type: "array", items: { type: "array", items: { type: "integer" } }, example: [[15, 25], [25, 30]] },
+            path: { type: "array", items: { type: "array", items: { type: "number" } }, example: [[45.5, 70.3], [50.1, 75.7]] },
             createdAt: { type: "string", format: "date-time" },
             updatedAt: { type: "string", format: "date-time" }
           }
