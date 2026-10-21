@@ -21,10 +21,5 @@ else
   exit 1
 fi
 
-# Popula os trabalhos da feira 2026 se o banco estiver vazio (SEED_FEIRA=0 desliga)
-if [ "$SEED_FEIRA" != "0" ]; then
-  node prisma/seed/seed-feira-2026.js --se-vazio || echo "⚠️  Seed da feira falhou; seguindo sem ele"
-fi
-
 echo "🎯 Iniciando servidor..."
 exec node dist/server.js
