@@ -41,4 +41,5 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Disparar deploy no Easypanel
-        run: curl -fsS -X POST -H "Content-Type: application/json" -d '{}' "${{ secrets.DEPLOY_WEBHOOK_URL }}"
+        run: |
+          curl -fsS -X POST -H "Content-Type: application/json" -d '{}' "${{ secrets.DEPLOY_WEBHOOK_URL }}"
