@@ -12,7 +12,7 @@ export const createNewProject = async (data: Prisma.ProjectCreateInput) => {
 };
 
 export const findAllProjects = async () => {
-  const projects = await prisma.project.findMany({ orderBy: { number: "asc" } });
+  const projects = await prisma.project.findMany({ orderBy: [{ number: { sort: "asc", nulls: "last" } }, { title: "asc" }] });
   return projects.map(withLocal);
 };
 

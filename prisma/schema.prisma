@@ -19,7 +19,7 @@ model Usuario {
 // em src/data/locais.json; o projeto guarda só o id do local.
 model Project {
   id          Int       @id @default(autoincrement())
-  number      Int       @unique
+  number      Int?      @unique
   title       String
   localId     String
   complemento String?

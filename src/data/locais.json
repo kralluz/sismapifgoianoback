@@ -108,6 +108,12 @@
     "tipo": "administrativo"
   },
   {
+    "id": "c-corredor",
+    "nome": "Corredor em frente ao Bloco C",
+    "bloco": "C",
+    "tipo": "area"
+  },
+  {
     "id": "c-espaco-web",
     "nome": "Espaço Web",
     "bloco": "C",
@@ -292,6 +298,12 @@
     "nome": "Tenda 5 (Bloco D)",
     "bloco": "D",
     "tipo": "tenda"
+  },
+  {
+    "id": "e-corredor",
+    "nome": "Corredor do Bloco E",
+    "bloco": "E",
+    "tipo": "area"
   },
   {
     "id": "e-sala-1",

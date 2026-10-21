@@ -25,7 +25,7 @@ export const createProject = async (req: Request, res: Response) => {
   try {
     const projectData = projectSchema.parse(req.body);
     const project = await projectService.createNewProject({
-      number: projectData.number,
+      number: projectData.number ?? null,
       title: projectData.title,
       localId: projectData.localId,
       complemento: projectData.complemento || null,
