@@ -36,6 +36,8 @@ RUN cp swagger-output.json dist/
 # Production stage
 FROM node:18-alpine AS production
 
+ENV NODE_ENV=production
+
 WORKDIR /app
 
 # Install curl for healthcheck

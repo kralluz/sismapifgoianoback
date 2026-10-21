@@ -1,6 +1,13 @@
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'sismap-secret-key-2025';
+// Sem JWT_SECRET usamos um segredo aleatório por processo: ninguém consegue
+// forjar tokens, mas os logins expiram quando o servidor reinicia.
+// O valor padrão antigo ficava no repositório público e não é mais aceito.
+if (!process.env.JWT_SECRET) {
+  console.warn('⚠️  JWT_SECRET não definido: usando segredo aleatório (logins expiram a cada reinício).');
+}
+export const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(32).toString('hex');
 
 export const verifyToken = (token: string) => {
   try {

@@ -1,25 +1,50 @@
 import { Request, Response } from 'express';
+import { z } from 'zod';
 import { createUser, findUserByEmail, validatePassword, getUserCount } from '../services/userService';
-import { validateAdminCredentials } from '../middlewares/authMiddleware';
 import { generateToken } from '../services/tokenService';
+import { verifyToken } from '../services/jwtService';
 
+const registerSchema = z.object({
+  nome: z.string().trim().min(2),
+  email: z.string().trim().toLowerCase().email(),
+  senha: z.string().min(6),
+  role: z.enum(['admin', 'user']).default('user'),
+});
+
+const loginSchema = z.object({
+  email: z.string().trim().toLowerCase().email(),
+  senha: z.string().min(1),
+});
+
+const isAdminRequest = (req: Request) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+  const decoded = token ? verifyToken(token) : null;
+  return decoded?.role === 'admin';
+};
+
+// O primeiro usuário do sistema vira admin; depois disso só um admin
+// autenticado (Bearer token) pode criar contas.
 export const register = async (req: Request, res: Response) => {
-  const { nome, email, senha, role, adminEmail, adminSenha } = req.body;
+  const parsed = registerSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: 'Dados inválidos.', issues: parsed.error.issues });
+  }
 
-  // Verificar se é o primeiro usuário ou se são credenciais válidas de admin
   const userCount = await getUserCount();
-  if (userCount > 0 && !validateAdminCredentials(adminEmail, adminSenha)) {
+  if (userCount > 0 && !isAdminRequest(req)) {
     return res.status(403).json({ error: 'Apenas administradores podem criar contas.' });
   }
 
+  const { nome, email, senha } = parsed.data;
+  const role = userCount === 0 ? 'admin' : parsed.data.role;
   try {
     const usuario = await createUser(nome, email, senha, role);
-    res.status(201).json({ 
-      id: usuario.id, 
-      nome: usuario.nome, 
-      email: usuario.email, 
+    res.status(201).json({
+      id: usuario.id,
+      nome: usuario.nome,
+      email: usuario.email,
       role: usuario.role,
-      isFirstUser: userCount === 0 // Indica se é o primeiro usuário
+      isFirstUser: userCount === 0,
     });
   } catch (error) {
     res.status(400).json({ error: 'Email já cadastrado ou dados inválidos.' });
@@ -27,53 +52,32 @@ export const register = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-  // Permitir qualquer payload: se usuário existir, tenta validar senha; se não existir, cria e retorna token.
-  const { email, senha, nome, role } = req.body || {};
-
-  const userCount = await getUserCount();
-
-  // Se não houver usuários, permitir qualquer login criando um admin padrão
-  if (userCount === 0) {
-    const adminEmail = email || 'admin@mail.com';
-    const adminSenha = senha || 'admin';
-    try {
-      const adminUser = await createUser('Administrador', adminEmail, adminSenha, 'admin');
-      const token = generateToken(adminUser.id, adminUser.email, adminUser.role);
-      return res.json({ id: adminUser.id, nome: adminUser.nome, email: adminUser.email, role: adminUser.role, token, isFirstLogin: true });
-    } catch (error) {
-      return res.status(500).json({ error: 'Erro ao criar usuário administrador.' });
-    }
+  const parsed = loginSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: 'Informe email e senha.' });
   }
+  const { email, senha } = parsed.data;
 
-  // Tentar encontrar usuário pelo email informado; se não informar email, criar um usuário temporário
-  if (!email) {
-    const tmpEmail = 'user_' + Date.now() + '@local';
-    const tmpSenha = senha || 'pass';
-    const created = await createUser(nome || 'User', tmpEmail, tmpSenha, role || 'user');
-    const token = generateToken(created.id, created.email, created.role);
-    return res.json({ id: created.id, nome: created.nome, email: created.email, role: created.role, token });
-  }
-
-  const usuario = await findUserByEmail(email);
-  if (!usuario) {
-    // cria usuário sem validação de credenciais e retorna token
-    const created = await createUser(nome || 'User', email, senha || 'pass', role || 'user');
-    const token = generateToken(created.id, created.email, created.role);
-    return res.json({ id: created.id, nome: created.nome, email: created.email, role: created.role, token });
-  }
-
-  // Se usuário existe, ainda assim permita login mesmo se senha estiver errada ("permitir qualquer coisa").
-  // Para compatibilidade, tentamos validar; se falhar, geramos token mesmo assim.
   try {
-    const valid = await validatePassword(senha || '', usuario.senha);
-    if (!valid) {
-      const token = generateToken(usuario.id, usuario.email, usuario.role);
-      return res.json({ id: usuario.id, nome: usuario.nome, email: usuario.email, role: usuario.role, token, warning: 'Senha inválida, login forçado conforme configuração.' });
+    // Sistema recém-instalado: o primeiro login cria o administrador
+    if ((await getUserCount()) === 0) {
+      if (senha.length < 6) {
+        return res.status(400).json({ error: 'A senha do primeiro administrador precisa ter ao menos 6 caracteres.' });
+      }
+      const admin = await createUser('Administrador', email, senha, 'admin');
+      const token = generateToken(admin.id, admin.email, admin.role);
+      return res.json({ id: admin.id, nome: admin.nome, email: admin.email, role: admin.role, token, isFirstLogin: true });
+    }
+
+    const usuario = await findUserByEmail(email);
+    // Mesma resposta para email inexistente e senha errada
+    if (!usuario || !(await validatePassword(senha, usuario.senha))) {
+      return res.status(401).json({ error: 'Email ou senha inválidos.' });
     }
     const token = generateToken(usuario.id, usuario.email, usuario.role);
     return res.json({ id: usuario.id, nome: usuario.nome, email: usuario.email, role: usuario.role, token });
   } catch (error) {
-    const token = generateToken(usuario.id, usuario.email, usuario.role);
-    return res.json({ id: usuario.id, nome: usuario.nome, email: usuario.email, role: usuario.role, token, warning: 'Erro na validação de senha, login forçado.' });
+    console.error('Erro no login:', error);
+    return res.status(500).json({ error: 'Erro ao fazer login.' });
   }
 };

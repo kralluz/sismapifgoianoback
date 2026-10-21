@@ -15,24 +15,16 @@ model Usuario {
   role    String
 }
 
-model Room {
-  id          Int     @id @default(autoincrement())
-  name        String
-  x           Float
-  y           Float
-  description String
-  path        Json
-  events      Project[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime? @updatedAt
-}
-
+// Os locais (salas, laboratórios, tendas…) são fixos e vêm do catálogo
+// em src/data/locais.json; o projeto guarda só o id do local.
 model Project {
-  id        Int      @id @default(autoincrement())
-  number    Int
-  title     String
-  roomId    Int
-  room      Room     @relation(fields: [roomId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime? @updatedAt
+  id          Int       @id @default(autoincrement())
+  number      Int       @unique
+  title       String
+  localId     String
+  complemento String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  @@index([localId])
 }

@@ -1,0 +1,470 @@
+[
+  {
+    "id": "a-dap",
+    "nome": "DAP",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-dir-ensino",
+    "nome": "Dir. Ensino",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-gabinete",
+    "nome": "Gabinete",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-ger-de-ensino",
+    "nome": "Ger. de Ensino",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-ger-de-extensao",
+    "nome": "Ger. de Extensão",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-ger-de-extensao-2",
+    "nome": "Ger. de Extensão",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-ger-de-pesquisa",
+    "nome": "Ger. de Pesquisa",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-gestao-de-pessoas",
+    "nome": "Gestão de Pessoas",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-recepcao",
+    "nome": "Recepção",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-reg-esc-graduacao",
+    "nome": "Reg. Esc. Graduação",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-reg-esc-tecnicos",
+    "nome": "Reg. Esc. Técnicos",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-sala-do-diretor",
+    "nome": "Sala do Diretor",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "a-telef",
+    "nome": "Telef.",
+    "bloco": "A",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "b-com",
+    "nome": "Comissão",
+    "bloco": "B",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "b-coordenacoes",
+    "nome": "Coordenações",
+    "bloco": "B",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "b-exposicoes",
+    "nome": "Exposições",
+    "bloco": "B",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "b-napne",
+    "nome": "NAPNE",
+    "bloco": "B",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "b-sala-de-reunioes",
+    "nome": "Sala de Reuniões",
+    "bloco": "B",
+    "tipo": "administrativo"
+  },
+  {
+    "id": "c-espaco-web",
+    "nome": "Espaço Web",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "c-lab-biologia",
+    "nome": "Lab. Biologia",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "c-lab-fisica",
+    "nome": "Lab. Física",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "c-lab-geomatico",
+    "nome": "Lab. Geomático",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "c-lab-informatica-01",
+    "nome": "Lab. Informática 01",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "c-lab-informatica-02",
+    "nome": "Lab. Informática 02",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "c-lab-informatica-03",
+    "nome": "Lab. Informática 03",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "c-lab-informatica-04",
+    "nome": "Lab. Informática 04",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "c-lab-linguas",
+    "nome": "Lab. Línguas",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "c-lab-manutencao",
+    "nome": "Lab. Manutenção",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "c-lab-quimica",
+    "nome": "Lab. Química",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "c-lab-robotica",
+    "nome": "Lab. Robótica",
+    "bloco": "C",
+    "tipo": "laboratorio"
+  },
+  {
+    "id": "d-sala-01",
+    "nome": "Sala 01",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-02",
+    "nome": "Sala 02",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-03",
+    "nome": "Sala 03",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-04",
+    "nome": "Sala 04",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-05",
+    "nome": "Sala 05",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-06",
+    "nome": "Sala 06",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-07",
+    "nome": "Sala 07",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-08",
+    "nome": "Sala 08",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-09",
+    "nome": "Sala 09",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-10",
+    "nome": "Sala 10",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-11",
+    "nome": "Sala 11",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-12",
+    "nome": "Sala 12",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-13",
+    "nome": "Sala 13",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-sala-14",
+    "nome": "Sala 14",
+    "bloco": "D",
+    "tipo": "sala"
+  },
+  {
+    "id": "d-tenda-1",
+    "nome": "Tenda 1 (Bloco D)",
+    "bloco": "D",
+    "tipo": "tenda"
+  },
+  {
+    "id": "d-tenda-2",
+    "nome": "Tenda 2 (Bloco D)",
+    "bloco": "D",
+    "tipo": "tenda"
+  },
+  {
+    "id": "d-tenda-3",
+    "nome": "Tenda 3 (Bloco D)",
+    "bloco": "D",
+    "tipo": "tenda"
+  },
+  {
+    "id": "d-tenda-4",
+    "nome": "Tenda 4 (Bloco D)",
+    "bloco": "D",
+    "tipo": "tenda"
+  },
+  {
+    "id": "d-tenda-5",
+    "nome": "Tenda 5 (Bloco D)",
+    "bloco": "D",
+    "tipo": "tenda"
+  },
+  {
+    "id": "e-sala-1",
+    "nome": "Sala 1",
+    "bloco": "E",
+    "tipo": "sala"
+  },
+  {
+    "id": "e-sala-2",
+    "nome": "Sala 2",
+    "bloco": "E",
+    "tipo": "sala"
+  },
+  {
+    "id": "e-sala-3",
+    "nome": "Sala 3",
+    "bloco": "E",
+    "tipo": "sala"
+  },
+  {
+    "id": "e-sala-4",
+    "nome": "Sala 4",
+    "bloco": "E",
+    "tipo": "sala"
+  },
+  {
+    "id": "e-sala-5",
+    "nome": "Sala 5",
+    "bloco": "E",
+    "tipo": "sala"
+  },
+  {
+    "id": "e-sala-6",
+    "nome": "Sala 6",
+    "bloco": "E",
+    "tipo": "sala"
+  },
+  {
+    "id": "assistencia-estudantil",
+    "nome": "Assistência Estudantil",
+    "bloco": null,
+    "tipo": "apoio"
+  },
+  {
+    "id": "bau-da-ciencia",
+    "nome": "Baú da Ciência",
+    "bloco": null,
+    "tipo": "apoio"
+  },
+  {
+    "id": "bloco-administrativo",
+    "nome": "Bloco Administrativo",
+    "bloco": null,
+    "tipo": "apoio"
+  },
+  {
+    "id": "cantina",
+    "nome": "Cantina",
+    "bloco": null,
+    "tipo": "apoio"
+  },
+  {
+    "id": "mirante",
+    "nome": "Mirante",
+    "bloco": null,
+    "tipo": "apoio"
+  },
+  {
+    "id": "pedagogico",
+    "nome": "Pedagógico",
+    "bloco": null,
+    "tipo": "apoio"
+  },
+  {
+    "id": "sala-dos-professores",
+    "nome": "Sala dos Professores",
+    "bloco": null,
+    "tipo": "apoio"
+  },
+  {
+    "id": "corredor-principal",
+    "nome": "Corredor principal",
+    "bloco": null,
+    "tipo": "area"
+  },
+  {
+    "id": "estacionamento",
+    "nome": "Estacionamento",
+    "bloco": null,
+    "tipo": "area"
+  },
+  {
+    "id": "estacao-de-tratamento-de-agua",
+    "nome": "Estação de Tratamento de água",
+    "bloco": null,
+    "tipo": "area"
+  },
+  {
+    "id": "posto-de-venda",
+    "nome": "Posto de Venda",
+    "bloco": null,
+    "tipo": "area"
+  },
+  {
+    "id": "quadra-aberta",
+    "nome": "Quadra Aberta",
+    "bloco": null,
+    "tipo": "area"
+  },
+  {
+    "id": "quadra-de-esporte",
+    "nome": "Quadra de Esporte",
+    "bloco": null,
+    "tipo": "area"
+  },
+  {
+    "id": "wc-1518-3075",
+    "nome": "WC",
+    "bloco": null,
+    "tipo": "banheiro"
+  },
+  {
+    "id": "wc-1567-3114",
+    "nome": "WC",
+    "bloco": null,
+    "tipo": "banheiro"
+  },
+  {
+    "id": "wc-3074-3472",
+    "nome": "WC",
+    "bloco": null,
+    "tipo": "banheiro"
+  },
+  {
+    "id": "wc-3117-3493",
+    "nome": "WC",
+    "bloco": null,
+    "tipo": "banheiro"
+  },
+  {
+    "id": "wc-1945-6135",
+    "nome": "WC",
+    "bloco": null,
+    "tipo": "banheiro"
+  },
+  {
+    "id": "tenda-1",
+    "nome": "Tenda 1 (Entrada)",
+    "bloco": null,
+    "tipo": "tenda"
+  },
+  {
+    "id": "tenda-2",
+    "nome": "Tenda 2 (Corredor principal)",
+    "bloco": null,
+    "tipo": "tenda"
+  },
+  {
+    "id": "tenda-3",
+    "nome": "Tenda 3 (Corredor principal)",
+    "bloco": null,
+    "tipo": "tenda"
+  },
+  {
+    "id": "tenda-4",
+    "nome": "Tenda 4 (Corredor principal)",
+    "bloco": null,
+    "tipo": "tenda"
+  },
+  {
+    "id": "tenda-5",
+    "nome": "Tenda 5 (Corredor principal)",
+    "bloco": null,
+    "tipo": "tenda"
+  }
+]

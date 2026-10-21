@@ -1,7 +1,7 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import authRouter from './routers/authRouter';
-import roomRouter from './routers/roomRouter';
+import localRouter from './routers/localRouter';
 import projectRouter from './routers/projectRouter';
 import cors from 'cors';
 import path from 'path';
@@ -55,7 +55,7 @@ app.get('/health',
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/auth', authRouter);
-app.use('/api/room', roomRouter);
+app.use('/api/locais', localRouter);
 app.use('/api/project', projectRouter);
 
 export default app;

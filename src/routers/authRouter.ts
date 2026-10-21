@@ -29,17 +29,9 @@ router.post('/register',
             role: {
               type: "string",
               example: "user"
-            },
-            adminEmail: {
-              type: "string",
-              example: "admin"
-            },
-            adminSenha: {
-              type: "string",
-              example: "admin"
             }
           },
-          required: ["nome", "email", "senha", "role", "adminEmail", "adminSenha"]
+          required: ["nome", "email", "senha"]
         }
       }
     }

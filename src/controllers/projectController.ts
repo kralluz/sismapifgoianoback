@@ -2,21 +2,37 @@ import { Request, Response } from 'express';
 import * as projectService from '../services/projectService';
 import { projectSchema, projectUpdateSchema } from '../schema/projectSchema';
 import { Prisma } from '@prisma/client';
+import { ZodError } from 'zod';
+
+// Traduz erros conhecidos em respostas úteis para o formulário
+const sendError = (res: Response, error: unknown, fallback: string) => {
+  if (error instanceof ZodError) {
+    return res.status(400).json({ error: error.issues[0]?.message ?? fallback, issues: error.issues });
+  }
+  if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    if (error.code === 'P2002') {
+      return res.status(409).json({ error: 'Já existe um projeto com esse número.' });
+    }
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: 'Projeto não encontrado.' });
+    }
+  }
+  console.error(fallback, error);
+  return res.status(500).json({ error: fallback });
+};
 
 export const createProject = async (req: Request, res: Response) => {
   try {
     const projectData = projectSchema.parse(req.body);
-
-    const data: Prisma.ProjectCreateInput = {
+    const project = await projectService.createNewProject({
       number: projectData.number,
       title: projectData.title,
-      room: { connect: { id: projectData.roomId } },
-    };
-    const project = await projectService.createNewProject(data);
+      localId: projectData.localId,
+      complemento: projectData.complemento || null,
+    });
     res.status(201).json(project);
   } catch (error) {
-    console.error('Erro ao criar projeto:', error);
-    res.status(400).json({ error: 'Erro ao criar projeto.' });
+    sendError(res, error, 'Erro ao criar projeto.');
   }
 };
 
@@ -25,51 +41,42 @@ export const getAllProjects = async (req: Request, res: Response) => {
     const projects = await projectService.findAllProjects();
     res.status(200).json(projects);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao buscar projetos.' });
+    sendError(res, error, 'Erro ao buscar projetos.');
   }
 };
 
 export const findProjectById = async (req: Request, res: Response) => {
-  const { id } = req.params;
-
   try {
-    const project = await projectService.getProjectById(Number(id));
+    const project = await projectService.getProjectById(Number(req.params.id));
     if (!project) {
       return res.status(404).json({ error: 'Projeto não encontrado.' });
     }
     res.status(200).json(project);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao buscar projeto.' });
+    sendError(res, error, 'Erro ao buscar projeto.');
   }
 };
 
 export const updateProject = async (req: Request, res: Response) => {
-  const { id } = req.params;
-
   try {
     const projectData = projectUpdateSchema.parse(req.body);
     const data: Prisma.ProjectUpdateInput = {};
     if (projectData.number !== undefined) data.number = projectData.number;
     if (projectData.title !== undefined) data.title = projectData.title;
-    if (projectData.roomId !== undefined) data.room = { connect: { id: projectData.roomId } };
-    const updatedProject = await projectService.updateProject(Number(id), data);
-    if (!updatedProject) {
-      return res.status(404).json({ error: 'Projeto não encontrado.' });
-    }
+    if (projectData.localId !== undefined) data.localId = projectData.localId;
+    if (projectData.complemento !== undefined) data.complemento = projectData.complemento || null;
+    const updatedProject = await projectService.updateProject(Number(req.params.id), data);
     res.status(200).json(updatedProject);
   } catch (error) {
-    res.status(400).json({ error: 'Erro ao atualizar projeto.' });
+    sendError(res, error, 'Erro ao atualizar projeto.');
   }
 };
 
-
 export const deleteProject = async (req: Request, res: Response) => {
-  const {id} = req.params;
-
-  try{
-    await projectService.deleteProject(Number(id));
+  try {
+    await projectService.deleteProject(Number(req.params.id));
     res.status(204).send();
   } catch (error) {
-    res.status(400).json({ error: 'Erro ao deletar projeto.' });
+    sendError(res, error, 'Erro ao deletar projeto.');
   }
-}
+};
