@@ -24,13 +24,5 @@
       "./src/types"
     ]
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "*.js",
-    "*.d.ts",
-    "api-client.ts",
-    "swagger.js",
-    "swagger-output.json"
-  ]
+  "include": ["src"]
 }
